@@ -52,6 +52,22 @@ tokens = (
     'RPAREN',
     'MOD',
     'ID',
+#BETANCOURT----------------------------- Caracteres de escape
+    'SALTOLINEA',
+    'CONCATSTR',
+    'CADENATEXTO',
+    'CONTROLX',
+    'ESCAPES',
+    'SALTOPAGINA',
+    'METACONTROLX',
+    'NOTACIONOCTAL',
+    'RETORNO',
+    'ESPACIOBLANCO',
+    'FICHAS',
+    'PESTANAVERTICAL',
+    'CARACTERX',
+    'NOTACIONHEXA'
+    #TERMINA---------------------------------------------------
 
 ) + tuple(reserved.values())
 # Regular expression rules for simple tokens
@@ -62,14 +78,29 @@ t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_MOD = r'%'
+#EMPIEZA REGLAS CARACTERES ESPECIALES BETANCOURT---------------
+t_SALTOLINEA = r'\\n'
+t_CONCATSTR = r'\\a'
+t_CADENATEXTO = r'\\b'
+t_CONTROLX = r'\\cx'
+t_ESCAPES = r'\\e'
+t_SALTOPAGINA = r'\\f'
+t_METACONTROLX = r'\\m-\\cx'
+t_NOTACIONOCTAL = r'\\nnn'
+t_RETORNO = r'\\r'
+t_ESPACIOBLANCO = r'\\s'
+t_FICHAS = r'\\t'
+t_PESTANAVERTICAL = r'\\v'
+t_CARACTERX = r'\\x'
+t_NOTACIONHEXA = r'\\xnn'
+#termina caracteres especiales---------------------------
 
-#t_EQUALS = r'\='#token asignacion
 #EMPIEZA Betancourt-----------------------------------------------------------------------------
 #variables en ruby
 empiezaVarRuby = r'(@|\$|@@)?'
 nondigit = r'([_A-Za-z])'
 variableRuby = empiezaVarRuby+nondigit+r'[\w]*'
-@TOKEN(variableRuby)#aun valida @@@algo
+@TOKEN(variableRuby)#Reconoce variables ruby ãlgo @@algo @algo
 #TERMINA Betancourt-----------------------------------------------------------------------------
 def t_ID(t):
     r'[a-zA-Z_]\w*'
