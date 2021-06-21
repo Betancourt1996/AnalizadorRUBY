@@ -68,6 +68,16 @@ tokens = (
     'CARACTERX',
     'NOTACIONHEXA'
     #TERMINA---------------------------------------------------
+    #VIVANCO---------------------------------------------------
+    'IGUALQUE',
+    'DIFERENTEQUE',
+    'MAYORQUE',
+    'MENORQUE',
+    'MAYORIGUALQUE',
+    'MENORIGUALQUE'
+    #TERMINA----------------------------------------------------
+
+
 
 ) + tuple(reserved.values())
 # Regular expression rules for simple tokens
@@ -94,6 +104,11 @@ t_PESTANAVERTICAL = r'\\v'
 t_CARACTERX = r'\\x'
 t_NOTACIONHEXA = r'\\xnn'
 #termina caracteres especiales---------------------------
+#VIVANCO REGLAS SIMBOLOS --------------------------------
+t_IGUALQUE = r'\=='
+t_DIFERENTEQUE = r'\!='
+t_MAYORQUE = r'\>'
+
 
 #EMPIEZA Betancourt-----------------------------------------------------------------------------
 #variables en ruby
