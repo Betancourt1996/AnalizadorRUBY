@@ -66,15 +66,30 @@ tokens = (
     'FICHAS',
     'PESTANAVERTICAL',
     'CARACTERX',
-    'NOTACIONHEXA'
+    'NOTACIONHEXA',
     #TERMINA---------------------------------------------------
     #VIVANCO---------------------------------------------------
+
     'IGUALQUE',
     'DIFERENTEQUE',
     'MAYORQUE',
     'MENORQUE',
     'MAYORIGUALQUE',
-    'MENORIGUALQUE'
+    'MENORIGUALQUE',
+    'SPACESHIP',
+    'IGUALDADESTRICTA',
+    'ANDLOGICO',
+    'ORLOGICO',
+    'NEGACION',
+    'ASIGNACION',
+    'ASIGNACIONSUMA',
+    'ASIGNACIONRESTA',
+    'ASIGNACIONPRODUCTO',
+    'ASIGNACIONDIVISION',
+    'ASIGNACIONMODULO',
+    'ASIGNACIONEXPONENCIAL'
+
+
     #TERMINA----------------------------------------------------
 
 
@@ -105,9 +120,25 @@ t_CARACTERX = r'\\x'
 t_NOTACIONHEXA = r'\\xnn'
 #termina caracteres especiales---------------------------
 #VIVANCO REGLAS SIMBOLOS --------------------------------
-t_IGUALQUE = r'\=='
+t_IGUALQUE = r'=='
 t_DIFERENTEQUE = r'\!='
 t_MAYORQUE = r'\>'
+t_MENORQUE = r'\<'
+t_MAYORIGUALQUE = r'\>='
+t_MENORIGUALQUE = r'\<='
+t_SPACESHIP = r'\<=>'
+t_IGUALDADESTRICTA = r'\==='
+t_ANDLOGICO = r'\&&'
+t_ORLOGICO = r'"||"'
+t_NEGACION = r'\!'
+t_ASIGNACION = r'='
+t_ASIGNACIONSUMA = r'\+='
+t_ASIGNACIONRESTA = r'\-='
+t_ASIGNACIONPRODUCTO = r'\*='
+t_ASIGNACIONDIVISION = r'\\='
+t_ASIGNACIONMODULO = r'\%='
+t_ASIGNACIONEXPONENCIAL = r'\**='
+
 
 
 #EMPIEZA Betancourt-----------------------------------------------------------------------------
