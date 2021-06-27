@@ -179,10 +179,10 @@ def getTokens(lexer):
         print(tok)
 # Build the lexer
 lexer = lex.lex()
-linea=" "
-while linea!="":
-    linea=input(">>")
-    lexer.input(linea)
-    getTokens(lexer)
-# Tokenize
-print("Succesfull")
+# linea=" "
+# while linea!="":
+#     linea=input(">>")
+#     lexer.input(linea)
+#     getTokens(lexer)
+# # Tokenize
+# print("Succesfull")
