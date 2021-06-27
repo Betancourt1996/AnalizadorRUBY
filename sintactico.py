@@ -7,9 +7,9 @@ def p_sentencias(p):
     """sentencias : impresion
                     | argumento
                     | puts"""
-def p_sentencias_if(p):#FACTOR ES NUMERO O ID
-    '''sentencias : IF LPAREN factor MAYORQUE factor RPAREN sentencias END
-                  | IF LPAREN factor MAYORQUE factor RPAREN THEN sentencias END'''
+def p_sentencias_if(p):
+    '''sentencias : IF LPAREN condicional RPAREN sentencias END
+                  | IF LPAREN condicional RPAREN THEN sentencias END'''
 #BETANCOURT COMIENZA____________________________________________________________________________________________
 def p_impresion(p):
     '''impresion : PRINT LPAREN argumento RPAREN
@@ -22,10 +22,20 @@ def p_puts(p):
                   | PUTS argumento
                   | PUTS LPAREN RPAREN
                   | PUTS '''
+def p_condicional(p):
+    '''condicional : factor MAYORQUE factor
+                   | factor MENORQUE factor
+                   | factor MAYORIGUALQUE factor
+                   | factor MENORIGUALQUE factor
+                   | factor IGUALQUE factor
+                   | factor DIFERENTEQUE factor
+                   | factor ANDLOGICO factor
+                   | factor ORLOGICO factor'''
 #BETANCOURT TERMINA_________________________________________________________________________________
 def p_argumento(p):
     '''argumento : expression
-                  | cadena'''
+                  | cadena
+                  | condicional'''
 def p_argumento_cadena(p):
     '''cadena : STRING
                | STRINGCC'''
