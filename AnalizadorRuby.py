@@ -164,6 +164,9 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'
+def t_COMMENT(t):
+    r'\#.*'
+    pass
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
