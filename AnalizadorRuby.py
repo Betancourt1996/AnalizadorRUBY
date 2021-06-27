@@ -69,6 +69,8 @@ tokens = (
     'PESTANAVERTICAL',
     'CARACTERX',
     'NOTACIONHEXA',
+    'STRING',
+    'STRINGCC',
     #TERMINA---------------------------------------------------
     #VIVANCO---------------------------------------------------
 
@@ -119,6 +121,8 @@ t_FICHAS = r'\\t'
 t_PESTANAVERTICAL = r'\\v'
 t_CARACTERX = r'\\x'
 t_NOTACIONHEXA = r'\\xnn'
+t_STRING = '\'.*\''
+t_STRINGCC = '".*"'
 #termina caracteres especiales---------------------------
 #VIVANCO REGLAS SIMBOLOS --------------------------------
 t_IGUALQUE = r'=='

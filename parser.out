@@ -57,6 +57,8 @@ Unused terminals:
     SALTOPAGINA
     SELF
     SPACESHIP
+    STRING
+    STRINGCC
     SUPER
     TRUE
     UNDEF
@@ -163,6 +165,8 @@ SALTOLINEA           :
 SALTOPAGINA          : 
 SELF                 : 
 SPACESHIP            : 
+STRING               : 
+STRINGCC             : 
 SUPER                : 
 THEN                 : 5
 TIMES                : 17
