@@ -8,8 +8,9 @@ def p_sentencias(p):
                     | expression
                     | puts"""
 def p_sentencias_if(p):
-    'sentencias : IF LPAREN factor MAYORQUE factor RPAREN sentencias'
-
+    '''sentencias : IF LPAREN factor MAYORQUE factor RPAREN sentencias END
+                  | IF LPAREN factor MAYORQUE factor RPAREN THEN sentencias END'''
+#BETANCOURT COMIENZA____________________________________________________________________________________________
 def p_impresion(p):
     '''impresion : PRINT LPAREN expression RPAREN
                   | PRINT expression
@@ -21,7 +22,7 @@ def p_puts(p):
                   | PUTS expression
                   | PUTS LPAREN RPAREN
                   | PUTS '''
-
+#BETANCOURT TERMINA_________________________________________________________________________________
 def p_expression_plus(p):
     'expression : expression PLUS term'
     p[0] = p[1] + p[3]
