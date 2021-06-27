@@ -13,6 +13,7 @@ reserved = {
     'case' : 'CASE',
     'class' : 'CLASS',
     'def' : 'DEF',
+    'print' : 'PRINT',
     #'defined?' : 'DEFINED?', #error
     'do' : 'DO',
     'elsif' : 'ELSIF',
@@ -88,7 +89,6 @@ tokens = (
     'ASIGNACIONDIVISION',
     'ASIGNACIONMODULO',
     'ASIGNACIONEXPONENCIAL'
-
 
     #TERMINA----------------------------------------------------
 
