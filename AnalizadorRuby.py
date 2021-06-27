@@ -40,7 +40,8 @@ reserved = {
     'when' : 'WHEN',
     'yield' : 'YIELD',
     '_FILE_' : '_FILE_',
-    '_LINE_' : '_LINE_'
+    '_LINE_' : '_LINE_',
+    'puts' :'PUTS'
     #termina BETANCOURT -----------------------------
 }
 tokens = (

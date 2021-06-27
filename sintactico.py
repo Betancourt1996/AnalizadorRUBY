@@ -5,15 +5,22 @@ from AnalizadorRUBY.AnalizadorRuby import tokens
 
 def p_sentencias(p):
     """sentencias : impresion
-                    | expression"""
+                    | expression
+                    | puts"""
 def p_sentencias_if(p):
     'sentencias : IF LPAREN factor MAYORQUE factor RPAREN sentencias'
 
 def p_impresion(p):
-    'impresion : PRINT LPAREN expression RPAREN'
+    '''impresion : PRINT LPAREN expression RPAREN
+                  | PRINT expression
+                  | PRINT LPAREN RPAREN
+                  | PRINT '''
 
-def p_impresion_vacio(p):
-    'impresion : PRINT LPAREN  RPAREN'
+def p_puts(p):
+    '''puts : PUTS LPAREN expression RPAREN
+                  | PUTS expression
+                  | PUTS LPAREN RPAREN
+                  | PUTS '''
 
 def p_expression_plus(p):
     'expression : expression PLUS term'
