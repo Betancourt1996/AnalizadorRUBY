@@ -5,24 +5,30 @@ from AnalizadorRUBY.AnalizadorRuby import tokens
 
 def p_sentencias(p):
     """sentencias : impresion
-                    | expression
+                    | argumento
                     | puts"""
-def p_sentencias_if(p):
+def p_sentencias_if(p):#FACTOR ES NUMERO O ID
     '''sentencias : IF LPAREN factor MAYORQUE factor RPAREN sentencias END
                   | IF LPAREN factor MAYORQUE factor RPAREN THEN sentencias END'''
 #BETANCOURT COMIENZA____________________________________________________________________________________________
 def p_impresion(p):
-    '''impresion : PRINT LPAREN expression RPAREN
-                  | PRINT expression
+    '''impresion : PRINT LPAREN argumento RPAREN
+                  | PRINT argumento
                   | PRINT LPAREN RPAREN
                   | PRINT '''
 
 def p_puts(p):
-    '''puts : PUTS LPAREN expression RPAREN
-                  | PUTS expression
+    '''puts : PUTS LPAREN argumento RPAREN
+                  | PUTS argumento
                   | PUTS LPAREN RPAREN
                   | PUTS '''
 #BETANCOURT TERMINA_________________________________________________________________________________
+def p_argumento(p):
+    '''argumento : expression
+                  | cadena'''
+def p_argumento_cadena(p):
+    '''cadena : STRING
+               | STRINGCC'''
 def p_expression_plus(p):
     'expression : expression PLUS term'
     p[0] = p[1] + p[3]
