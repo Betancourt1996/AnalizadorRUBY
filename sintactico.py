@@ -3,6 +3,17 @@ import ply.yacc as yacc
 # Get the token map from the lexer.  This is required.
 from AnalizadorRUBY.AnalizadorRuby import tokens
 
+def p_sentencias(p):
+    """sentencias : impresion
+                    | expression"""
+def p_sentencias_if(p):
+    'sentencias : IF LPAREN factor MAYORQUE factor RPAREN sentencias'
+
+def p_impresion(p):
+    'impresion : PRINT LPAREN expression RPAREN'
+
+def p_impresion_vacio(p):
+    'impresion : PRINT LPAREN  RPAREN'
 
 def p_expression_plus(p):
     'expression : expression PLUS term'
@@ -38,7 +49,9 @@ def p_factor_num(p):
     'factor : NUMBER'
     p[0] = p[1]
 
-
+def p_factor_var(p):
+    'factor : ID'
+    p[0] = p[1]
 def p_factor_expr(p):
     'factor : LPAREN expression RPAREN'
     p[0] = p[2]

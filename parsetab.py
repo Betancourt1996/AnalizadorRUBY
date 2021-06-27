@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ALIAS AND ANDLOGICO ASIGNACION ASIGNACIONDIVISION ASIGNACIONEXPONENCIAL ASIGNACIONMODULO ASIGNACIONPRODUCTO ASIGNACIONRESTA ASIGNACIONSUMA BREAK CADENATEXTO CARACTERX CASE CLASS CONCATSTR CONTROLX DEF DIFERENTEQUE DIVIDE DO ELSE ELSIF END ENSURE ESCAPES ESPACIOBLANCO FALSE FICHAS FOR ID IF IGUALDADESTRICTA IGUALQUE IN LPAREN MAYORIGUALQUE MAYORQUE MENORIGUALQUE MENORQUE METACONTROLX MINUS MOD MODULE NEGACION NEXT NIL NOT NOTACIONHEXA NOTACIONOCTAL NUMBER OR ORLOGICO PESTANAVERTICAL PLUS PRINT REDO RESCUE RETORNO RETRY RETURN RPAREN SALTOLINEA SALTOPAGINA SELF SPACESHIP SUPER THEN TIMES TRUE UNDEF UNLESS UNTIL WHEN WHILE YIELD _FILE_ _LINE_expression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : factorfactor : NUMBERfactor : LPAREN expression RPAREN'
+_lr_signature = 'ALIAS AND ANDLOGICO ASIGNACION ASIGNACIONDIVISION ASIGNACIONEXPONENCIAL ASIGNACIONMODULO ASIGNACIONPRODUCTO ASIGNACIONRESTA ASIGNACIONSUMA BREAK CADENATEXTO CARACTERX CASE CLASS CONCATSTR CONTROLX DEF DIFERENTEQUE DIVIDE DO ELSE ELSIF END ENSURE ESCAPES ESPACIOBLANCO FALSE FICHAS FOR ID IF IGUALDADESTRICTA IGUALQUE IN LPAREN MAYORIGUALQUE MAYORQUE MENORIGUALQUE MENORQUE METACONTROLX MINUS MOD MODULE NEGACION NEXT NIL NOT NOTACIONHEXA NOTACIONOCTAL NUMBER OR ORLOGICO PESTANAVERTICAL PLUS PRINT REDO RESCUE RETORNO RETRY RETURN RPAREN SALTOLINEA SALTOPAGINA SELF SPACESHIP SUPER THEN TIMES TRUE UNDEF UNLESS UNTIL WHEN WHILE YIELD _FILE_ _LINE_sentencias : impresion\n                    | expressionsentencias : IF LPAREN factor MAYORQUE factor RPAREN sentenciasimpresion : PRINT LPAREN expression RPARENimpresion : PRINT LPAREN  RPARENexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : factorfactor : NUMBERfactor : IDfactor : LPAREN expression RPAREN'
     
-_lr_action_items = {'NUMBER':([0,5,6,7,8,9,],[4,4,4,4,4,4,]),'LPAREN':([0,5,6,7,8,9,],[5,5,5,5,5,5,]),'$end':([1,2,3,4,11,12,13,14,15,],[0,-3,-6,-7,-1,-2,-4,-5,-8,]),'PLUS':([1,2,3,4,10,11,12,13,14,15,],[6,-3,-6,-7,6,-1,-2,-4,-5,-8,]),'MINUS':([1,2,3,4,10,11,12,13,14,15,],[7,-3,-6,-7,7,-1,-2,-4,-5,-8,]),'RPAREN':([2,3,4,10,11,12,13,14,15,],[-3,-6,-7,15,-1,-2,-4,-5,-8,]),'TIMES':([2,3,4,11,12,13,14,15,],[8,-6,-7,8,8,-4,-5,-8,]),'DIVIDE':([2,3,4,11,12,13,14,15,],[9,-6,-7,9,9,-4,-5,-8,]),}
+_lr_action_items = {'IF':([0,29,],[4,4,]),'PRINT':([0,29,],[7,7,]),'NUMBER':([0,5,11,12,13,15,16,17,26,29,],[9,9,9,9,9,9,9,9,9,9,]),'ID':([0,5,11,12,13,15,16,17,26,29,],[10,10,10,10,10,10,10,10,10,10,]),'LPAREN':([0,4,5,7,11,12,13,15,16,17,26,29,],[5,13,5,15,5,5,5,5,5,5,5,5,]),'$end':([1,2,3,6,8,9,10,18,19,21,23,24,25,27,30,],[0,-1,-2,-11,-8,-12,-13,-6,-7,-14,-5,-9,-10,-4,-3,]),'PLUS':([3,6,8,9,10,14,18,19,21,22,24,25,],[11,-11,-8,-12,-13,11,-6,-7,-14,11,-9,-10,]),'MINUS':([3,6,8,9,10,14,18,19,21,22,24,25,],[12,-11,-8,-12,-13,12,-6,-7,-14,12,-9,-10,]),'TIMES':([6,8,9,10,18,19,21,24,25,],[-11,16,-12,-13,16,16,-14,-9,-10,]),'DIVIDE':([6,8,9,10,18,19,21,24,25,],[-11,17,-12,-13,17,17,-14,-9,-10,]),'RPAREN':([6,8,9,10,14,15,18,19,21,22,24,25,28,],[-11,-8,-12,-13,21,23,-6,-7,-14,27,-9,-10,29,]),'MAYORQUE':([9,10,20,21,],[-12,-13,26,-14,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,5,],[1,10,]),'term':([0,5,6,7,],[2,2,11,12,]),'factor':([0,5,6,7,8,9,],[3,3,3,3,13,14,]),}
+_lr_goto_items = {'sentencias':([0,29,],[1,30,]),'impresion':([0,29,],[2,2,]),'expression':([0,5,15,29,],[3,14,22,3,]),'factor':([0,5,11,12,13,15,16,17,26,29,],[6,6,6,6,20,6,24,25,28,6,]),'term':([0,5,11,12,15,29,],[8,8,18,19,8,8,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,13 +26,19 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> expression","S'",1,None,None,None),
-  ('expression -> expression PLUS term','expression',3,'p_expression_plus','sintactico.py',8),
-  ('expression -> expression MINUS term','expression',3,'p_expression_minus','sintactico.py',13),
-  ('expression -> term','expression',1,'p_expression_term','sintactico.py',18),
-  ('term -> term TIMES factor','term',3,'p_term_times','sintactico.py',23),
-  ('term -> term DIVIDE factor','term',3,'p_term_div','sintactico.py',28),
-  ('term -> factor','term',1,'p_term_factor','sintactico.py',33),
-  ('factor -> NUMBER','factor',1,'p_factor_num','sintactico.py',38),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','sintactico.py',43),
+  ("S' -> sentencias","S'",1,None,None,None),
+  ('sentencias -> impresion','sentencias',1,'p_sentencias','sintactico.py',7),
+  ('sentencias -> expression','sentencias',1,'p_sentencias','sintactico.py',8),
+  ('sentencias -> IF LPAREN factor MAYORQUE factor RPAREN sentencias','sentencias',7,'p_sentencias_if','sintactico.py',10),
+  ('impresion -> PRINT LPAREN expression RPAREN','impresion',4,'p_impresion','sintactico.py',13),
+  ('impresion -> PRINT LPAREN RPAREN','impresion',3,'p_impresion_vacio','sintactico.py',16),
+  ('expression -> expression PLUS term','expression',3,'p_expression_plus','sintactico.py',19),
+  ('expression -> expression MINUS term','expression',3,'p_expression_minus','sintactico.py',24),
+  ('expression -> term','expression',1,'p_expression_term','sintactico.py',29),
+  ('term -> term TIMES factor','term',3,'p_term_times','sintactico.py',34),
+  ('term -> term DIVIDE factor','term',3,'p_term_div','sintactico.py',39),
+  ('term -> factor','term',1,'p_term_factor','sintactico.py',44),
+  ('factor -> NUMBER','factor',1,'p_factor_num','sintactico.py',49),
+  ('factor -> ID','factor',1,'p_factor_var','sintactico.py',53),
+  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','sintactico.py',56),
 ]
