@@ -5,6 +5,7 @@ reserved = {
     'if' : 'IF',
     'then' : 'THEN',
     'else' : 'ELSE',
+    'elseif' : 'ELSEIF',
     'while' : 'WHILE',
     #empieza BETANCOURT-----------------------------
     'alias' : 'ALIAS',
@@ -71,6 +72,7 @@ tokens = (
     'NOTACIONHEXA',
     'STRING',
     'STRINGCC',
+    'DOBLEPUNTO',
     #TERMINA---------------------------------------------------
     #VIVANCO---------------------------------------------------
 
@@ -123,6 +125,7 @@ t_CARACTERX = r'\\x'
 t_NOTACIONHEXA = r'\\xnn'
 t_STRING = '\'.*\''
 t_STRINGCC = '".*"'
+t_DOBLEPUNTO = '\.\.'
 #termina caracteres especiales---------------------------
 #VIVANCO REGLAS SIMBOLOS --------------------------------
 t_IGUALQUE = r'=='

@@ -9,8 +9,37 @@ def p_sentencias(p):
                     | puts"""
 def p_sentencias_if(p):
     '''sentencias : IF LPAREN condicional RPAREN sentencias END
-                  | IF LPAREN condicional RPAREN THEN sentencias END'''
+                  | IF LPAREN condicional RPAREN THEN sentencias END
+                  | IF LPAREN condicional RPAREN  sentencias elseifanidado ELSE sentencias END'''
+def p_sentencias_unless(p):
+    '''sentencias : UNLESS LPAREN condicional RPAREN sentencias END
+                  | UNLESS LPAREN condicional RPAREN THEN sentencias END
+                  | UNLESS LPAREN condicional RPAREN sentencias elseifanidado  ELSE sentencias END'''
+def p_empty(p):
+    'empty :'
+    pass
+
+def p_elseifanidado(p):
+    '''elseifanidado : ELSEIF sentencias
+                    | ELSEIF sentencias elseifanidado
+                    | empty'''
 #BETANCOURT COMIENZA____________________________________________________________________________________________
+# def p_sentencias_whileBegin(p):
+#     '''sentencias : BEGIN  sentencias END WHILE condicional
+#                   | BEGIN  sentencias END WHILE LPAREN condicional RPAREN'''
+def p_sentencias_until(p):
+    '''sentencias : UNTIL LPAREN condicional RPAREN DO sentencias END
+                      | UNTIL  condicional  DO sentencias END
+                      | UNTIL LPAREN condicional RPAREN  sentencias END
+                      | UNTIL  condicional   sentencias END'''
+def p_sentencias_while(p):
+    '''sentencias : WHILE LPAREN condicional RPAREN DO sentencias END
+                      | WHILE  condicional  DO sentencias END
+                      | WHILE LPAREN condicional RPAREN  sentencias END
+                      | WHILE  condicional   sentencias END'''
+def p_sentencias_for(p):
+    '''sentencias : FOR ID IN iterable sentencias END
+                  | FOR ID IN iterable DO sentencias END'''
 def p_impresion(p):
     '''impresion : PRINT LPAREN argumento RPAREN
                   | PRINT argumento
@@ -22,13 +51,14 @@ def p_puts(p):
                   | PUTS argumento
                   | PUTS LPAREN RPAREN
                   | PUTS '''
-    
+
 def p_argumento(p):
     '''argumento : expression
                   | cadena
                   | condicional'''
-
-def p_condicional(t):
+def p_iterable(p):
+    '''iterable : expression DOBLEPUNTO expression'''
+def p_condicional(p):
     '''condicional : boolean
                  | boolOp'''
 def p_boolean(p):
