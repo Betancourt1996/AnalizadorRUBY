@@ -20,6 +20,7 @@ Unused terminals:
     DEF
     ELSIF
     ENSURE
+    EQUALS
     ESCAPES
     ESPACIOBLANCO
     FICHAS
@@ -149,6 +150,7 @@ ELSEIF               : 11 12
 ELSIF                : 
 END                  : 4 5 6 7 8 9 14 15 16 17 18 19 25 26 27 28 29 30
 ENSURE               : 
+EQUALS               : 
 ESCAPES              : 
 ESPACIOBLANCO        : 
 FALSE                : 47

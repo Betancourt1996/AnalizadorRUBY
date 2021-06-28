@@ -73,6 +73,7 @@ tokens = (
     'STRING',
     'STRINGCC',
     'DOBLEPUNTO',
+    'EQUALS',
     #TERMINA---------------------------------------------------
     #VIVANCO---------------------------------------------------
 
@@ -126,6 +127,7 @@ t_NOTACIONHEXA = r'\\xnn'
 t_STRING = '\'.*\''
 t_STRINGCC = '".*"'
 t_DOBLEPUNTO = '\.\.'
+t_EQUALS = "\="
 #termina caracteres especiales---------------------------
 #VIVANCO REGLAS SIMBOLOS --------------------------------
 t_IGUALQUE = r'=='

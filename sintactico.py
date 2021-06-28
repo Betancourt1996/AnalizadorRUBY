@@ -28,6 +28,7 @@ def p_elseifanidado(p):
 # def p_sentencias_whileBegin(p):
 #     '''sentencias : BEGIN  sentencias END WHILE condicional
 #                   | BEGIN  sentencias END WHILE LPAREN condicional RPAREN'''
+
 def p_sentencias_until(p):
     '''sentencias : UNTIL LPAREN condicional RPAREN DO sentencias END
                       | UNTIL  condicional  DO sentencias END
@@ -137,7 +138,8 @@ def p_factor_expr(p):
 def p_error(p):
     print("Syntax error in input!")
 
-
+# def p_asignacion(p):
+#     'asignacion : ID  EQUALS NUMBER'
 # Build the parser
 parser = yacc.yacc()
 
