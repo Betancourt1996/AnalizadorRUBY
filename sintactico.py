@@ -22,8 +22,21 @@ def p_puts(p):
                   | PUTS argumento
                   | PUTS LPAREN RPAREN
                   | PUTS '''
-def p_condicional(p):
-    '''condicional : factor MAYORQUE factor
+    
+def p_argumento(p):
+    '''argumento : expression
+                  | cadena
+                  | condicional'''
+
+def p_condicional(t):
+    '''condicional : boolean
+                 | boolOp'''
+def p_boolean(p):
+    '''boolean : TRUE
+               | FALSE'''
+
+def p_boolOp(p):
+    '''boolOp : factor MAYORQUE factor
                    | factor MENORQUE factor
                    | factor MAYORIGUALQUE factor
                    | factor MENORIGUALQUE factor
@@ -31,11 +44,7 @@ def p_condicional(p):
                    | factor DIFERENTEQUE factor
                    | factor ANDLOGICO factor
                    | factor ORLOGICO factor'''
-#BETANCOURT TERMINA_________________________________________________________________________________
-def p_argumento(p):
-    '''argumento : expression
-                  | cadena
-                  | condicional'''
+# BETANCOURT TERMINA_________________________________________________________________________________
 def p_argumento_cadena(p):
     '''cadena : STRING
                | STRINGCC'''

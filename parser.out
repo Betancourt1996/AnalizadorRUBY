@@ -25,7 +25,6 @@ Unused terminals:
     ENSURE
     ESCAPES
     ESPACIOBLANCO
-    FALSE
     FICHAS
     FOR
     IGUALDADESTRICTA
@@ -51,7 +50,6 @@ Unused terminals:
     SELF
     SPACESHIP
     SUPER
-    TRUE
     UNDEF
     UNLESS
     UNTIL
@@ -77,34 +75,38 @@ Rule 10    puts -> PUTS LPAREN argumento RPAREN
 Rule 11    puts -> PUTS argumento
 Rule 12    puts -> PUTS LPAREN RPAREN
 Rule 13    puts -> PUTS
-Rule 14    condicional -> factor MAYORQUE factor
-Rule 15    condicional -> factor MENORQUE factor
-Rule 16    condicional -> factor MAYORIGUALQUE factor
-Rule 17    condicional -> factor MENORIGUALQUE factor
-Rule 18    condicional -> factor IGUALQUE factor
-Rule 19    condicional -> factor DIFERENTEQUE factor
-Rule 20    condicional -> factor ANDLOGICO factor
-Rule 21    condicional -> factor ORLOGICO factor
-Rule 22    argumento -> expression
-Rule 23    argumento -> cadena
-Rule 24    argumento -> condicional
-Rule 25    cadena -> STRING
-Rule 26    cadena -> STRINGCC
-Rule 27    expression -> expression PLUS term
-Rule 28    expression -> expression MINUS term
-Rule 29    expression -> term
-Rule 30    term -> term TIMES factor
-Rule 31    term -> term DIVIDE factor
-Rule 32    term -> factor
-Rule 33    factor -> NUMBER
-Rule 34    factor -> ID
-Rule 35    factor -> LPAREN expression RPAREN
+Rule 14    argumento -> expression
+Rule 15    argumento -> cadena
+Rule 16    argumento -> condicional
+Rule 17    condicional -> boolean
+Rule 18    condicional -> boolOp
+Rule 19    boolean -> TRUE
+Rule 20    boolean -> FALSE
+Rule 21    boolOp -> factor MAYORQUE factor
+Rule 22    boolOp -> factor MENORQUE factor
+Rule 23    boolOp -> factor MAYORIGUALQUE factor
+Rule 24    boolOp -> factor MENORIGUALQUE factor
+Rule 25    boolOp -> factor IGUALQUE factor
+Rule 26    boolOp -> factor DIFERENTEQUE factor
+Rule 27    boolOp -> factor ANDLOGICO factor
+Rule 28    boolOp -> factor ORLOGICO factor
+Rule 29    cadena -> STRING
+Rule 30    cadena -> STRINGCC
+Rule 31    expression -> expression PLUS term
+Rule 32    expression -> expression MINUS term
+Rule 33    expression -> term
+Rule 34    term -> term TIMES factor
+Rule 35    term -> term DIVIDE factor
+Rule 36    term -> factor
+Rule 37    factor -> NUMBER
+Rule 38    factor -> ID
+Rule 39    factor -> LPAREN expression RPAREN
 
 Terminals, with rules where they appear
 
 ALIAS                : 
 AND                  : 
-ANDLOGICO            : 20
+ANDLOGICO            : 27
 ASIGNACION           : 
 ASIGNACIONDIVISION   : 
 ASIGNACIONEXPONENCIAL : 
@@ -120,8 +122,8 @@ CLASS                :
 CONCATSTR            : 
 CONTROLX             : 
 DEF                  : 
-DIFERENTEQUE         : 19
-DIVIDE               : 31
+DIFERENTEQUE         : 26
+DIVIDE               : 35
 DO                   : 
 ELSE                 : 
 ELSIF                : 
@@ -129,21 +131,21 @@ END                  : 4 5
 ENSURE               : 
 ESCAPES              : 
 ESPACIOBLANCO        : 
-FALSE                : 
+FALSE                : 20
 FICHAS               : 
 FOR                  : 
-ID                   : 34
+ID                   : 38
 IF                   : 4 5
 IGUALDADESTRICTA     : 
-IGUALQUE             : 18
+IGUALQUE             : 25
 IN                   : 
-LPAREN               : 4 5 6 8 10 12 35
-MAYORIGUALQUE        : 16
-MAYORQUE             : 14
-MENORIGUALQUE        : 17
-MENORQUE             : 15
+LPAREN               : 4 5 6 8 10 12 39
+MAYORIGUALQUE        : 23
+MAYORQUE             : 21
+MENORIGUALQUE        : 24
+MENORQUE             : 22
 METACONTROLX         : 
-MINUS                : 28
+MINUS                : 32
 MOD                  : 
 MODULE               : 
 NEGACION             : 
@@ -152,11 +154,11 @@ NIL                  :
 NOT                  : 
 NOTACIONHEXA         : 
 NOTACIONOCTAL        : 
-NUMBER               : 33
+NUMBER               : 37
 OR                   : 
-ORLOGICO             : 21
+ORLOGICO             : 28
 PESTANAVERTICAL      : 
-PLUS                 : 27
+PLUS                 : 31
 PRINT                : 6 7 8 9
 PUTS                 : 10 11 12 13
 REDO                 : 
@@ -164,17 +166,17 @@ RESCUE               :
 RETORNO              : 
 RETRY                : 
 RETURN               : 
-RPAREN               : 4 5 6 8 10 12 35
+RPAREN               : 4 5 6 8 10 12 39
 SALTOLINEA           : 
 SALTOPAGINA          : 
 SELF                 : 
 SPACESHIP            : 
-STRING               : 25
-STRINGCC             : 26
+STRING               : 29
+STRINGCC             : 30
 SUPER                : 
 THEN                 : 5
-TIMES                : 30
-TRUE                 : 
+TIMES                : 34
+TRUE                 : 19
 UNDEF                : 
 UNLESS               : 
 UNTIL                : 
@@ -188,14 +190,16 @@ error                :
 Nonterminals, with rules where they appear
 
 argumento            : 2 6 7 10 11
-cadena               : 23
-condicional          : 4 5 24
-expression           : 22 27 28 35
-factor               : 14 14 15 15 16 16 17 17 18 18 19 19 20 20 21 21 30 31 32
+boolOp               : 18
+boolean              : 17
+cadena               : 15
+condicional          : 4 5 16
+expression           : 14 31 32 39
+factor               : 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 34 35 36
 impresion            : 1
 puts                 : 3
 sentencias           : 4 5 0
-term                 : 27 28 29 30 31
+term                 : 31 32 33 34 35
 
 Parsing method: LALR
 
@@ -211,40 +215,46 @@ state 0
     (7) impresion -> . PRINT argumento
     (8) impresion -> . PRINT LPAREN RPAREN
     (9) impresion -> . PRINT
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
     (10) puts -> . PUTS LPAREN argumento RPAREN
     (11) puts -> . PUTS argumento
     (12) puts -> . PUTS LPAREN RPAREN
     (13) puts -> . PUTS
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
     IF              shift and go to state 5
     PRINT           shift and go to state 8
     PUTS            shift and go to state 11
     STRING          shift and go to state 13
     STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     sentencias                     shift and go to state 1
@@ -255,7 +265,9 @@ state 0
     expression                     shift and go to state 9
     cadena                         shift and go to state 10
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
 state 1
 
@@ -292,37 +304,37 @@ state 5
     (4) sentencias -> IF . LPAREN condicional RPAREN sentencias END
     (5) sentencias -> IF . LPAREN condicional RPAREN THEN sentencias END
 
-    LPAREN          shift and go to state 18
+    LPAREN          shift and go to state 22
 
 
 state 6
 
-    (35) factor -> LPAREN . expression RPAREN
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (39) factor -> LPAREN . expression RPAREN
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 23
     term                           shift and go to state 12
-    factor                         shift and go to state 20
+    factor                         shift and go to state 24
 
 state 7
 
-    (24) argumento -> condicional .
+    (16) argumento -> condicional .
 
-    $end            reduce using rule 24 (argumento -> condicional .)
-    END             reduce using rule 24 (argumento -> condicional .)
-    RPAREN          reduce using rule 24 (argumento -> condicional .)
+    $end            reduce using rule 16 (argumento -> condicional .)
+    END             reduce using rule 16 (argumento -> condicional .)
+    RPAREN          reduce using rule 16 (argumento -> condicional .)
 
 
 state 8
@@ -331,63 +343,71 @@ state 8
     (7) impresion -> PRINT . argumento
     (8) impresion -> PRINT . LPAREN RPAREN
     (9) impresion -> PRINT .
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    LPAREN          shift and go to state 21
+    LPAREN          shift and go to state 25
     $end            reduce using rule 9 (impresion -> PRINT .)
     END             reduce using rule 9 (impresion -> PRINT .)
     STRING          shift and go to state 13
     STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
 
-    argumento                      shift and go to state 22
+    argumento                      shift and go to state 26
     expression                     shift and go to state 9
     cadena                         shift and go to state 10
     condicional                    shift and go to state 7
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
 state 9
 
-    (22) argumento -> expression .
-    (27) expression -> expression . PLUS term
-    (28) expression -> expression . MINUS term
+    (14) argumento -> expression .
+    (31) expression -> expression . PLUS term
+    (32) expression -> expression . MINUS term
 
-    $end            reduce using rule 22 (argumento -> expression .)
-    END             reduce using rule 22 (argumento -> expression .)
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
+    $end            reduce using rule 14 (argumento -> expression .)
+    END             reduce using rule 14 (argumento -> expression .)
+    PLUS            shift and go to state 27
+    MINUS           shift and go to state 28
 
 
 state 10
 
-    (23) argumento -> cadena .
+    (15) argumento -> cadena .
 
-    $end            reduce using rule 23 (argumento -> cadena .)
-    END             reduce using rule 23 (argumento -> cadena .)
-    RPAREN          reduce using rule 23 (argumento -> cadena .)
+    $end            reduce using rule 15 (argumento -> cadena .)
+    END             reduce using rule 15 (argumento -> cadena .)
+    RPAREN          reduce using rule 15 (argumento -> cadena .)
 
 
 state 11
@@ -396,238 +416,298 @@ state 11
     (11) puts -> PUTS . argumento
     (12) puts -> PUTS . LPAREN RPAREN
     (13) puts -> PUTS .
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    LPAREN          shift and go to state 25
+    LPAREN          shift and go to state 29
     $end            reduce using rule 13 (puts -> PUTS .)
     END             reduce using rule 13 (puts -> PUTS .)
     STRING          shift and go to state 13
     STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
 
-    argumento                      shift and go to state 26
+    argumento                      shift and go to state 30
     expression                     shift and go to state 9
     cadena                         shift and go to state 10
     condicional                    shift and go to state 7
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
 state 12
 
-    (29) expression -> term .
-    (30) term -> term . TIMES factor
-    (31) term -> term . DIVIDE factor
+    (33) expression -> term .
+    (34) term -> term . TIMES factor
+    (35) term -> term . DIVIDE factor
 
-    PLUS            reduce using rule 29 (expression -> term .)
-    MINUS           reduce using rule 29 (expression -> term .)
-    $end            reduce using rule 29 (expression -> term .)
-    RPAREN          reduce using rule 29 (expression -> term .)
-    END             reduce using rule 29 (expression -> term .)
-    TIMES           shift and go to state 27
-    DIVIDE          shift and go to state 28
+    PLUS            reduce using rule 33 (expression -> term .)
+    MINUS           reduce using rule 33 (expression -> term .)
+    $end            reduce using rule 33 (expression -> term .)
+    RPAREN          reduce using rule 33 (expression -> term .)
+    END             reduce using rule 33 (expression -> term .)
+    TIMES           shift and go to state 31
+    DIVIDE          shift and go to state 32
 
 
 state 13
 
-    (25) cadena -> STRING .
+    (29) cadena -> STRING .
 
-    $end            reduce using rule 25 (cadena -> STRING .)
-    END             reduce using rule 25 (cadena -> STRING .)
-    RPAREN          reduce using rule 25 (cadena -> STRING .)
+    $end            reduce using rule 29 (cadena -> STRING .)
+    END             reduce using rule 29 (cadena -> STRING .)
+    RPAREN          reduce using rule 29 (cadena -> STRING .)
 
 
 state 14
 
-    (26) cadena -> STRINGCC .
+    (30) cadena -> STRINGCC .
 
-    $end            reduce using rule 26 (cadena -> STRINGCC .)
-    END             reduce using rule 26 (cadena -> STRINGCC .)
-    RPAREN          reduce using rule 26 (cadena -> STRINGCC .)
+    $end            reduce using rule 30 (cadena -> STRINGCC .)
+    END             reduce using rule 30 (cadena -> STRINGCC .)
+    RPAREN          reduce using rule 30 (cadena -> STRINGCC .)
 
 
 state 15
 
-    (14) condicional -> factor . MAYORQUE factor
-    (15) condicional -> factor . MENORQUE factor
-    (16) condicional -> factor . MAYORIGUALQUE factor
-    (17) condicional -> factor . MENORIGUALQUE factor
-    (18) condicional -> factor . IGUALQUE factor
-    (19) condicional -> factor . DIFERENTEQUE factor
-    (20) condicional -> factor . ANDLOGICO factor
-    (21) condicional -> factor . ORLOGICO factor
-    (32) term -> factor .
+    (17) condicional -> boolean .
 
-    MAYORQUE        shift and go to state 29
-    MENORQUE        shift and go to state 30
-    MAYORIGUALQUE   shift and go to state 31
-    MENORIGUALQUE   shift and go to state 32
-    IGUALQUE        shift and go to state 33
-    DIFERENTEQUE    shift and go to state 34
-    ANDLOGICO       shift and go to state 35
-    ORLOGICO        shift and go to state 36
-    TIMES           reduce using rule 32 (term -> factor .)
-    DIVIDE          reduce using rule 32 (term -> factor .)
-    PLUS            reduce using rule 32 (term -> factor .)
-    MINUS           reduce using rule 32 (term -> factor .)
-    $end            reduce using rule 32 (term -> factor .)
-    END             reduce using rule 32 (term -> factor .)
-    RPAREN          reduce using rule 32 (term -> factor .)
+    $end            reduce using rule 17 (condicional -> boolean .)
+    END             reduce using rule 17 (condicional -> boolean .)
+    RPAREN          reduce using rule 17 (condicional -> boolean .)
 
 
 state 16
 
-    (33) factor -> NUMBER .
+    (18) condicional -> boolOp .
 
-    MAYORQUE        reduce using rule 33 (factor -> NUMBER .)
-    MENORQUE        reduce using rule 33 (factor -> NUMBER .)
-    MAYORIGUALQUE   reduce using rule 33 (factor -> NUMBER .)
-    MENORIGUALQUE   reduce using rule 33 (factor -> NUMBER .)
-    IGUALQUE        reduce using rule 33 (factor -> NUMBER .)
-    DIFERENTEQUE    reduce using rule 33 (factor -> NUMBER .)
-    ANDLOGICO       reduce using rule 33 (factor -> NUMBER .)
-    ORLOGICO        reduce using rule 33 (factor -> NUMBER .)
-    TIMES           reduce using rule 33 (factor -> NUMBER .)
-    DIVIDE          reduce using rule 33 (factor -> NUMBER .)
-    PLUS            reduce using rule 33 (factor -> NUMBER .)
-    MINUS           reduce using rule 33 (factor -> NUMBER .)
-    $end            reduce using rule 33 (factor -> NUMBER .)
-    RPAREN          reduce using rule 33 (factor -> NUMBER .)
-    END             reduce using rule 33 (factor -> NUMBER .)
+    $end            reduce using rule 18 (condicional -> boolOp .)
+    END             reduce using rule 18 (condicional -> boolOp .)
+    RPAREN          reduce using rule 18 (condicional -> boolOp .)
 
 
 state 17
 
-    (34) factor -> ID .
+    (36) term -> factor .
+    (21) boolOp -> factor . MAYORQUE factor
+    (22) boolOp -> factor . MENORQUE factor
+    (23) boolOp -> factor . MAYORIGUALQUE factor
+    (24) boolOp -> factor . MENORIGUALQUE factor
+    (25) boolOp -> factor . IGUALQUE factor
+    (26) boolOp -> factor . DIFERENTEQUE factor
+    (27) boolOp -> factor . ANDLOGICO factor
+    (28) boolOp -> factor . ORLOGICO factor
 
-    MAYORQUE        reduce using rule 34 (factor -> ID .)
-    MENORQUE        reduce using rule 34 (factor -> ID .)
-    MAYORIGUALQUE   reduce using rule 34 (factor -> ID .)
-    MENORIGUALQUE   reduce using rule 34 (factor -> ID .)
-    IGUALQUE        reduce using rule 34 (factor -> ID .)
-    DIFERENTEQUE    reduce using rule 34 (factor -> ID .)
-    ANDLOGICO       reduce using rule 34 (factor -> ID .)
-    ORLOGICO        reduce using rule 34 (factor -> ID .)
-    TIMES           reduce using rule 34 (factor -> ID .)
-    DIVIDE          reduce using rule 34 (factor -> ID .)
-    PLUS            reduce using rule 34 (factor -> ID .)
-    MINUS           reduce using rule 34 (factor -> ID .)
-    $end            reduce using rule 34 (factor -> ID .)
-    RPAREN          reduce using rule 34 (factor -> ID .)
-    END             reduce using rule 34 (factor -> ID .)
+    TIMES           reduce using rule 36 (term -> factor .)
+    DIVIDE          reduce using rule 36 (term -> factor .)
+    PLUS            reduce using rule 36 (term -> factor .)
+    MINUS           reduce using rule 36 (term -> factor .)
+    $end            reduce using rule 36 (term -> factor .)
+    END             reduce using rule 36 (term -> factor .)
+    RPAREN          reduce using rule 36 (term -> factor .)
+    MAYORQUE        shift and go to state 33
+    MENORQUE        shift and go to state 34
+    MAYORIGUALQUE   shift and go to state 35
+    MENORIGUALQUE   shift and go to state 36
+    IGUALQUE        shift and go to state 37
+    DIFERENTEQUE    shift and go to state 38
+    ANDLOGICO       shift and go to state 39
+    ORLOGICO        shift and go to state 40
 
 
 state 18
 
-    (4) sentencias -> IF LPAREN . condicional RPAREN sentencias END
-    (5) sentencias -> IF LPAREN . condicional RPAREN THEN sentencias END
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (19) boolean -> TRUE .
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
-    LPAREN          shift and go to state 6
+    $end            reduce using rule 19 (boolean -> TRUE .)
+    END             reduce using rule 19 (boolean -> TRUE .)
+    RPAREN          reduce using rule 19 (boolean -> TRUE .)
 
-    condicional                    shift and go to state 37
-    factor                         shift and go to state 38
 
 state 19
 
-    (35) factor -> LPAREN expression . RPAREN
-    (27) expression -> expression . PLUS term
-    (28) expression -> expression . MINUS term
+    (20) boolean -> FALSE .
 
-    RPAREN          shift and go to state 39
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
+    $end            reduce using rule 20 (boolean -> FALSE .)
+    END             reduce using rule 20 (boolean -> FALSE .)
+    RPAREN          reduce using rule 20 (boolean -> FALSE .)
 
 
 state 20
 
-    (32) term -> factor .
+    (37) factor -> NUMBER .
 
-    TIMES           reduce using rule 32 (term -> factor .)
-    DIVIDE          reduce using rule 32 (term -> factor .)
-    RPAREN          reduce using rule 32 (term -> factor .)
-    PLUS            reduce using rule 32 (term -> factor .)
-    MINUS           reduce using rule 32 (term -> factor .)
-    $end            reduce using rule 32 (term -> factor .)
-    END             reduce using rule 32 (term -> factor .)
+    MAYORQUE        reduce using rule 37 (factor -> NUMBER .)
+    MENORQUE        reduce using rule 37 (factor -> NUMBER .)
+    MAYORIGUALQUE   reduce using rule 37 (factor -> NUMBER .)
+    MENORIGUALQUE   reduce using rule 37 (factor -> NUMBER .)
+    IGUALQUE        reduce using rule 37 (factor -> NUMBER .)
+    DIFERENTEQUE    reduce using rule 37 (factor -> NUMBER .)
+    ANDLOGICO       reduce using rule 37 (factor -> NUMBER .)
+    ORLOGICO        reduce using rule 37 (factor -> NUMBER .)
+    TIMES           reduce using rule 37 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 37 (factor -> NUMBER .)
+    PLUS            reduce using rule 37 (factor -> NUMBER .)
+    MINUS           reduce using rule 37 (factor -> NUMBER .)
+    $end            reduce using rule 37 (factor -> NUMBER .)
+    RPAREN          reduce using rule 37 (factor -> NUMBER .)
+    END             reduce using rule 37 (factor -> NUMBER .)
 
 
 state 21
 
-    (6) impresion -> PRINT LPAREN . argumento RPAREN
-    (8) impresion -> PRINT LPAREN . RPAREN
-    (35) factor -> LPAREN . expression RPAREN
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (38) factor -> ID .
 
-    RPAREN          shift and go to state 41
-    STRING          shift and go to state 13
-    STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    MAYORQUE        reduce using rule 38 (factor -> ID .)
+    MENORQUE        reduce using rule 38 (factor -> ID .)
+    MAYORIGUALQUE   reduce using rule 38 (factor -> ID .)
+    MENORIGUALQUE   reduce using rule 38 (factor -> ID .)
+    IGUALQUE        reduce using rule 38 (factor -> ID .)
+    DIFERENTEQUE    reduce using rule 38 (factor -> ID .)
+    ANDLOGICO       reduce using rule 38 (factor -> ID .)
+    ORLOGICO        reduce using rule 38 (factor -> ID .)
+    TIMES           reduce using rule 38 (factor -> ID .)
+    DIVIDE          reduce using rule 38 (factor -> ID .)
+    PLUS            reduce using rule 38 (factor -> ID .)
+    MINUS           reduce using rule 38 (factor -> ID .)
+    $end            reduce using rule 38 (factor -> ID .)
+    RPAREN          reduce using rule 38 (factor -> ID .)
+    END             reduce using rule 38 (factor -> ID .)
+
+
+state 22
+
+    (4) sentencias -> IF LPAREN . condicional RPAREN sentencias END
+    (5) sentencias -> IF LPAREN . condicional RPAREN THEN sentencias END
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
+
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
-    argumento                      shift and go to state 40
-    expression                     shift and go to state 42
+    condicional                    shift and go to state 41
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 42
+
+state 23
+
+    (39) factor -> LPAREN expression . RPAREN
+    (31) expression -> expression . PLUS term
+    (32) expression -> expression . MINUS term
+
+    RPAREN          shift and go to state 43
+    PLUS            shift and go to state 27
+    MINUS           shift and go to state 28
+
+
+state 24
+
+    (36) term -> factor .
+
+    TIMES           reduce using rule 36 (term -> factor .)
+    DIVIDE          reduce using rule 36 (term -> factor .)
+    RPAREN          reduce using rule 36 (term -> factor .)
+    PLUS            reduce using rule 36 (term -> factor .)
+    MINUS           reduce using rule 36 (term -> factor .)
+    $end            reduce using rule 36 (term -> factor .)
+    END             reduce using rule 36 (term -> factor .)
+
+
+state 25
+
+    (6) impresion -> PRINT LPAREN . argumento RPAREN
+    (8) impresion -> PRINT LPAREN . RPAREN
+    (39) factor -> LPAREN . expression RPAREN
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
+
+    RPAREN          shift and go to state 45
+    STRING          shift and go to state 13
+    STRINGCC        shift and go to state 14
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
+    LPAREN          shift and go to state 6
+
+    argumento                      shift and go to state 44
+    expression                     shift and go to state 46
     cadena                         shift and go to state 10
     condicional                    shift and go to state 7
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
-state 22
+state 26
 
     (7) impresion -> PRINT argumento .
 
@@ -635,83 +715,91 @@ state 22
     END             reduce using rule 7 (impresion -> PRINT argumento .)
 
 
-state 23
+state 27
 
-    (27) expression -> expression PLUS . term
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (31) expression -> expression PLUS . term
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
-    term                           shift and go to state 43
-    factor                         shift and go to state 20
+    term                           shift and go to state 47
+    factor                         shift and go to state 24
 
-state 24
+state 28
 
-    (28) expression -> expression MINUS . term
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (32) expression -> expression MINUS . term
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
-    term                           shift and go to state 44
-    factor                         shift and go to state 20
+    term                           shift and go to state 48
+    factor                         shift and go to state 24
 
-state 25
+state 29
 
     (10) puts -> PUTS LPAREN . argumento RPAREN
     (12) puts -> PUTS LPAREN . RPAREN
-    (35) factor -> LPAREN . expression RPAREN
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (39) factor -> LPAREN . expression RPAREN
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    RPAREN          shift and go to state 46
+    RPAREN          shift and go to state 50
     STRING          shift and go to state 13
     STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
-    argumento                      shift and go to state 45
-    expression                     shift and go to state 42
+    argumento                      shift and go to state 49
+    expression                     shift and go to state 46
     cadena                         shift and go to state 10
     condicional                    shift and go to state 7
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
-state 26
+state 30
 
     (11) puts -> PUTS argumento .
 
@@ -719,194 +807,194 @@ state 26
     END             reduce using rule 11 (puts -> PUTS argumento .)
 
 
-state 27
-
-    (30) term -> term TIMES . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
-    LPAREN          shift and go to state 6
-
-    factor                         shift and go to state 47
-
-state 28
-
-    (31) term -> term DIVIDE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
-    LPAREN          shift and go to state 6
-
-    factor                         shift and go to state 48
-
-state 29
-
-    (14) condicional -> factor MAYORQUE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
-    LPAREN          shift and go to state 6
-
-    factor                         shift and go to state 49
-
-state 30
-
-    (15) condicional -> factor MENORQUE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
-    LPAREN          shift and go to state 6
-
-    factor                         shift and go to state 50
-
 state 31
 
-    (16) condicional -> factor MAYORIGUALQUE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (34) term -> term TIMES . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     factor                         shift and go to state 51
 
 state 32
 
-    (17) condicional -> factor MENORIGUALQUE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (35) term -> term DIVIDE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     factor                         shift and go to state 52
 
 state 33
 
-    (18) condicional -> factor IGUALQUE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (21) boolOp -> factor MAYORQUE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     factor                         shift and go to state 53
 
 state 34
 
-    (19) condicional -> factor DIFERENTEQUE . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (22) boolOp -> factor MENORQUE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     factor                         shift and go to state 54
 
 state 35
 
-    (20) condicional -> factor ANDLOGICO . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (23) boolOp -> factor MAYORIGUALQUE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     factor                         shift and go to state 55
 
 state 36
 
-    (21) condicional -> factor ORLOGICO . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (24) boolOp -> factor MENORIGUALQUE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     factor                         shift and go to state 56
 
 state 37
 
-    (4) sentencias -> IF LPAREN condicional . RPAREN sentencias END
-    (5) sentencias -> IF LPAREN condicional . RPAREN THEN sentencias END
+    (25) boolOp -> factor IGUALQUE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    RPAREN          shift and go to state 57
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
+    LPAREN          shift and go to state 6
 
+    factor                         shift and go to state 57
 
 state 38
 
-    (14) condicional -> factor . MAYORQUE factor
-    (15) condicional -> factor . MENORQUE factor
-    (16) condicional -> factor . MAYORIGUALQUE factor
-    (17) condicional -> factor . MENORIGUALQUE factor
-    (18) condicional -> factor . IGUALQUE factor
-    (19) condicional -> factor . DIFERENTEQUE factor
-    (20) condicional -> factor . ANDLOGICO factor
-    (21) condicional -> factor . ORLOGICO factor
+    (26) boolOp -> factor DIFERENTEQUE . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    MAYORQUE        shift and go to state 29
-    MENORQUE        shift and go to state 30
-    MAYORIGUALQUE   shift and go to state 31
-    MENORIGUALQUE   shift and go to state 32
-    IGUALQUE        shift and go to state 33
-    DIFERENTEQUE    shift and go to state 34
-    ANDLOGICO       shift and go to state 35
-    ORLOGICO        shift and go to state 36
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
+    LPAREN          shift and go to state 6
 
+    factor                         shift and go to state 58
 
 state 39
 
-    (35) factor -> LPAREN expression RPAREN .
+    (27) boolOp -> factor ANDLOGICO . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    MAYORQUE        reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    MENORQUE        reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    MAYORIGUALQUE   reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    MENORIGUALQUE   reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    IGUALQUE        reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    DIFERENTEQUE    reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    ANDLOGICO       reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    ORLOGICO        reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    TIMES           reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    $end            reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 35 (factor -> LPAREN expression RPAREN .)
-    END             reduce using rule 35 (factor -> LPAREN expression RPAREN .)
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
+    LPAREN          shift and go to state 6
 
+    factor                         shift and go to state 59
 
 state 40
 
-    (6) impresion -> PRINT LPAREN argumento . RPAREN
+    (28) boolOp -> factor ORLOGICO . factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    RPAREN          shift and go to state 58
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
+    LPAREN          shift and go to state 6
 
+    factor                         shift and go to state 60
 
 state 41
+
+    (4) sentencias -> IF LPAREN condicional . RPAREN sentencias END
+    (5) sentencias -> IF LPAREN condicional . RPAREN THEN sentencias END
+
+    RPAREN          shift and go to state 61
+
+
+state 42
+
+    (21) boolOp -> factor . MAYORQUE factor
+    (22) boolOp -> factor . MENORQUE factor
+    (23) boolOp -> factor . MAYORIGUALQUE factor
+    (24) boolOp -> factor . MENORIGUALQUE factor
+    (25) boolOp -> factor . IGUALQUE factor
+    (26) boolOp -> factor . DIFERENTEQUE factor
+    (27) boolOp -> factor . ANDLOGICO factor
+    (28) boolOp -> factor . ORLOGICO factor
+
+    MAYORQUE        shift and go to state 33
+    MENORQUE        shift and go to state 34
+    MAYORIGUALQUE   shift and go to state 35
+    MENORIGUALQUE   shift and go to state 36
+    IGUALQUE        shift and go to state 37
+    DIFERENTEQUE    shift and go to state 38
+    ANDLOGICO       shift and go to state 39
+    ORLOGICO        shift and go to state 40
+
+
+state 43
+
+    (39) factor -> LPAREN expression RPAREN .
+
+    MAYORQUE        reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    MENORQUE        reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    MAYORIGUALQUE   reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    MENORIGUALQUE   reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    IGUALQUE        reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    DIFERENTEQUE    reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    ANDLOGICO       reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    ORLOGICO        reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    $end            reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+    END             reduce using rule 39 (factor -> LPAREN expression RPAREN .)
+
+
+state 44
+
+    (6) impresion -> PRINT LPAREN argumento . RPAREN
+
+    RPAREN          shift and go to state 62
+
+
+state 45
 
     (8) impresion -> PRINT LPAREN RPAREN .
 
@@ -914,59 +1002,59 @@ state 41
     END             reduce using rule 8 (impresion -> PRINT LPAREN RPAREN .)
 
 
-state 42
+state 46
 
-    (35) factor -> LPAREN expression . RPAREN
-    (22) argumento -> expression .
-    (27) expression -> expression . PLUS term
-    (28) expression -> expression . MINUS term
+    (39) factor -> LPAREN expression . RPAREN
+    (14) argumento -> expression .
+    (31) expression -> expression . PLUS term
+    (32) expression -> expression . MINUS term
 
   ! shift/reduce conflict for RPAREN resolved as shift
-    RPAREN          shift and go to state 39
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
+    RPAREN          shift and go to state 43
+    PLUS            shift and go to state 27
+    MINUS           shift and go to state 28
 
-  ! RPAREN          [ reduce using rule 22 (argumento -> expression .) ]
-
-
-state 43
-
-    (27) expression -> expression PLUS term .
-    (30) term -> term . TIMES factor
-    (31) term -> term . DIVIDE factor
-
-    PLUS            reduce using rule 27 (expression -> expression PLUS term .)
-    MINUS           reduce using rule 27 (expression -> expression PLUS term .)
-    $end            reduce using rule 27 (expression -> expression PLUS term .)
-    RPAREN          reduce using rule 27 (expression -> expression PLUS term .)
-    END             reduce using rule 27 (expression -> expression PLUS term .)
-    TIMES           shift and go to state 27
-    DIVIDE          shift and go to state 28
+  ! RPAREN          [ reduce using rule 14 (argumento -> expression .) ]
 
 
-state 44
+state 47
 
-    (28) expression -> expression MINUS term .
-    (30) term -> term . TIMES factor
-    (31) term -> term . DIVIDE factor
+    (31) expression -> expression PLUS term .
+    (34) term -> term . TIMES factor
+    (35) term -> term . DIVIDE factor
 
-    PLUS            reduce using rule 28 (expression -> expression MINUS term .)
-    MINUS           reduce using rule 28 (expression -> expression MINUS term .)
-    $end            reduce using rule 28 (expression -> expression MINUS term .)
-    RPAREN          reduce using rule 28 (expression -> expression MINUS term .)
-    END             reduce using rule 28 (expression -> expression MINUS term .)
-    TIMES           shift and go to state 27
-    DIVIDE          shift and go to state 28
+    PLUS            reduce using rule 31 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 31 (expression -> expression PLUS term .)
+    $end            reduce using rule 31 (expression -> expression PLUS term .)
+    RPAREN          reduce using rule 31 (expression -> expression PLUS term .)
+    END             reduce using rule 31 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 31
+    DIVIDE          shift and go to state 32
 
 
-state 45
+state 48
+
+    (32) expression -> expression MINUS term .
+    (34) term -> term . TIMES factor
+    (35) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 32 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 32 (expression -> expression MINUS term .)
+    $end            reduce using rule 32 (expression -> expression MINUS term .)
+    RPAREN          reduce using rule 32 (expression -> expression MINUS term .)
+    END             reduce using rule 32 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 31
+    DIVIDE          shift and go to state 32
+
+
+state 49
 
     (10) puts -> PUTS LPAREN argumento . RPAREN
 
-    RPAREN          shift and go to state 59
+    RPAREN          shift and go to state 63
 
 
-state 46
+state 50
 
     (12) puts -> PUTS LPAREN RPAREN .
 
@@ -974,105 +1062,105 @@ state 46
     END             reduce using rule 12 (puts -> PUTS LPAREN RPAREN .)
 
 
-state 47
-
-    (30) term -> term TIMES factor .
-
-    TIMES           reduce using rule 30 (term -> term TIMES factor .)
-    DIVIDE          reduce using rule 30 (term -> term TIMES factor .)
-    PLUS            reduce using rule 30 (term -> term TIMES factor .)
-    MINUS           reduce using rule 30 (term -> term TIMES factor .)
-    $end            reduce using rule 30 (term -> term TIMES factor .)
-    RPAREN          reduce using rule 30 (term -> term TIMES factor .)
-    END             reduce using rule 30 (term -> term TIMES factor .)
-
-
-state 48
-
-    (31) term -> term DIVIDE factor .
-
-    TIMES           reduce using rule 31 (term -> term DIVIDE factor .)
-    DIVIDE          reduce using rule 31 (term -> term DIVIDE factor .)
-    PLUS            reduce using rule 31 (term -> term DIVIDE factor .)
-    MINUS           reduce using rule 31 (term -> term DIVIDE factor .)
-    $end            reduce using rule 31 (term -> term DIVIDE factor .)
-    RPAREN          reduce using rule 31 (term -> term DIVIDE factor .)
-    END             reduce using rule 31 (term -> term DIVIDE factor .)
-
-
-state 49
-
-    (14) condicional -> factor MAYORQUE factor .
-
-    $end            reduce using rule 14 (condicional -> factor MAYORQUE factor .)
-    END             reduce using rule 14 (condicional -> factor MAYORQUE factor .)
-    RPAREN          reduce using rule 14 (condicional -> factor MAYORQUE factor .)
-
-
-state 50
-
-    (15) condicional -> factor MENORQUE factor .
-
-    $end            reduce using rule 15 (condicional -> factor MENORQUE factor .)
-    END             reduce using rule 15 (condicional -> factor MENORQUE factor .)
-    RPAREN          reduce using rule 15 (condicional -> factor MENORQUE factor .)
-
-
 state 51
 
-    (16) condicional -> factor MAYORIGUALQUE factor .
+    (34) term -> term TIMES factor .
 
-    $end            reduce using rule 16 (condicional -> factor MAYORIGUALQUE factor .)
-    END             reduce using rule 16 (condicional -> factor MAYORIGUALQUE factor .)
-    RPAREN          reduce using rule 16 (condicional -> factor MAYORIGUALQUE factor .)
+    TIMES           reduce using rule 34 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 34 (term -> term TIMES factor .)
+    PLUS            reduce using rule 34 (term -> term TIMES factor .)
+    MINUS           reduce using rule 34 (term -> term TIMES factor .)
+    $end            reduce using rule 34 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 34 (term -> term TIMES factor .)
+    END             reduce using rule 34 (term -> term TIMES factor .)
 
 
 state 52
 
-    (17) condicional -> factor MENORIGUALQUE factor .
+    (35) term -> term DIVIDE factor .
 
-    $end            reduce using rule 17 (condicional -> factor MENORIGUALQUE factor .)
-    END             reduce using rule 17 (condicional -> factor MENORIGUALQUE factor .)
-    RPAREN          reduce using rule 17 (condicional -> factor MENORIGUALQUE factor .)
+    TIMES           reduce using rule 35 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 35 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 35 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 35 (term -> term DIVIDE factor .)
+    $end            reduce using rule 35 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 35 (term -> term DIVIDE factor .)
+    END             reduce using rule 35 (term -> term DIVIDE factor .)
 
 
 state 53
 
-    (18) condicional -> factor IGUALQUE factor .
+    (21) boolOp -> factor MAYORQUE factor .
 
-    $end            reduce using rule 18 (condicional -> factor IGUALQUE factor .)
-    END             reduce using rule 18 (condicional -> factor IGUALQUE factor .)
-    RPAREN          reduce using rule 18 (condicional -> factor IGUALQUE factor .)
+    $end            reduce using rule 21 (boolOp -> factor MAYORQUE factor .)
+    END             reduce using rule 21 (boolOp -> factor MAYORQUE factor .)
+    RPAREN          reduce using rule 21 (boolOp -> factor MAYORQUE factor .)
 
 
 state 54
 
-    (19) condicional -> factor DIFERENTEQUE factor .
+    (22) boolOp -> factor MENORQUE factor .
 
-    $end            reduce using rule 19 (condicional -> factor DIFERENTEQUE factor .)
-    END             reduce using rule 19 (condicional -> factor DIFERENTEQUE factor .)
-    RPAREN          reduce using rule 19 (condicional -> factor DIFERENTEQUE factor .)
+    $end            reduce using rule 22 (boolOp -> factor MENORQUE factor .)
+    END             reduce using rule 22 (boolOp -> factor MENORQUE factor .)
+    RPAREN          reduce using rule 22 (boolOp -> factor MENORQUE factor .)
 
 
 state 55
 
-    (20) condicional -> factor ANDLOGICO factor .
+    (23) boolOp -> factor MAYORIGUALQUE factor .
 
-    $end            reduce using rule 20 (condicional -> factor ANDLOGICO factor .)
-    END             reduce using rule 20 (condicional -> factor ANDLOGICO factor .)
-    RPAREN          reduce using rule 20 (condicional -> factor ANDLOGICO factor .)
+    $end            reduce using rule 23 (boolOp -> factor MAYORIGUALQUE factor .)
+    END             reduce using rule 23 (boolOp -> factor MAYORIGUALQUE factor .)
+    RPAREN          reduce using rule 23 (boolOp -> factor MAYORIGUALQUE factor .)
 
 
 state 56
 
-    (21) condicional -> factor ORLOGICO factor .
+    (24) boolOp -> factor MENORIGUALQUE factor .
 
-    $end            reduce using rule 21 (condicional -> factor ORLOGICO factor .)
-    END             reduce using rule 21 (condicional -> factor ORLOGICO factor .)
-    RPAREN          reduce using rule 21 (condicional -> factor ORLOGICO factor .)
+    $end            reduce using rule 24 (boolOp -> factor MENORIGUALQUE factor .)
+    END             reduce using rule 24 (boolOp -> factor MENORIGUALQUE factor .)
+    RPAREN          reduce using rule 24 (boolOp -> factor MENORIGUALQUE factor .)
 
 
 state 57
+
+    (25) boolOp -> factor IGUALQUE factor .
+
+    $end            reduce using rule 25 (boolOp -> factor IGUALQUE factor .)
+    END             reduce using rule 25 (boolOp -> factor IGUALQUE factor .)
+    RPAREN          reduce using rule 25 (boolOp -> factor IGUALQUE factor .)
+
+
+state 58
+
+    (26) boolOp -> factor DIFERENTEQUE factor .
+
+    $end            reduce using rule 26 (boolOp -> factor DIFERENTEQUE factor .)
+    END             reduce using rule 26 (boolOp -> factor DIFERENTEQUE factor .)
+    RPAREN          reduce using rule 26 (boolOp -> factor DIFERENTEQUE factor .)
+
+
+state 59
+
+    (27) boolOp -> factor ANDLOGICO factor .
+
+    $end            reduce using rule 27 (boolOp -> factor ANDLOGICO factor .)
+    END             reduce using rule 27 (boolOp -> factor ANDLOGICO factor .)
+    RPAREN          reduce using rule 27 (boolOp -> factor ANDLOGICO factor .)
+
+
+state 60
+
+    (28) boolOp -> factor ORLOGICO factor .
+
+    $end            reduce using rule 28 (boolOp -> factor ORLOGICO factor .)
+    END             reduce using rule 28 (boolOp -> factor ORLOGICO factor .)
+    RPAREN          reduce using rule 28 (boolOp -> factor ORLOGICO factor .)
+
+
+state 61
 
     (4) sentencias -> IF LPAREN condicional RPAREN . sentencias END
     (5) sentencias -> IF LPAREN condicional RPAREN . THEN sentencias END
@@ -1085,54 +1173,62 @@ state 57
     (7) impresion -> . PRINT argumento
     (8) impresion -> . PRINT LPAREN RPAREN
     (9) impresion -> . PRINT
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
     (10) puts -> . PUTS LPAREN argumento RPAREN
     (11) puts -> . PUTS argumento
     (12) puts -> . PUTS LPAREN RPAREN
     (13) puts -> . PUTS
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
-    THEN            shift and go to state 61
+    THEN            shift and go to state 65
     IF              shift and go to state 5
     PRINT           shift and go to state 8
     PUTS            shift and go to state 11
     STRING          shift and go to state 13
     STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     condicional                    shift and go to state 7
-    sentencias                     shift and go to state 60
+    sentencias                     shift and go to state 64
     impresion                      shift and go to state 2
     argumento                      shift and go to state 3
     puts                           shift and go to state 4
     expression                     shift and go to state 9
     cadena                         shift and go to state 10
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
-state 58
+state 62
 
     (6) impresion -> PRINT LPAREN argumento RPAREN .
 
@@ -1140,7 +1236,7 @@ state 58
     END             reduce using rule 6 (impresion -> PRINT LPAREN argumento RPAREN .)
 
 
-state 59
+state 63
 
     (10) puts -> PUTS LPAREN argumento RPAREN .
 
@@ -1148,14 +1244,14 @@ state 59
     END             reduce using rule 10 (puts -> PUTS LPAREN argumento RPAREN .)
 
 
-state 60
+state 64
 
     (4) sentencias -> IF LPAREN condicional RPAREN sentencias . END
 
-    END             shift and go to state 62
+    END             shift and go to state 66
 
 
-state 61
+state 65
 
     (5) sentencias -> IF LPAREN condicional RPAREN THEN . sentencias END
     (1) sentencias -> . impresion
@@ -1167,53 +1263,61 @@ state 61
     (7) impresion -> . PRINT argumento
     (8) impresion -> . PRINT LPAREN RPAREN
     (9) impresion -> . PRINT
-    (22) argumento -> . expression
-    (23) argumento -> . cadena
-    (24) argumento -> . condicional
+    (14) argumento -> . expression
+    (15) argumento -> . cadena
+    (16) argumento -> . condicional
     (10) puts -> . PUTS LPAREN argumento RPAREN
     (11) puts -> . PUTS argumento
     (12) puts -> . PUTS LPAREN RPAREN
     (13) puts -> . PUTS
-    (27) expression -> . expression PLUS term
-    (28) expression -> . expression MINUS term
-    (29) expression -> . term
-    (25) cadena -> . STRING
-    (26) cadena -> . STRINGCC
-    (14) condicional -> . factor MAYORQUE factor
-    (15) condicional -> . factor MENORQUE factor
-    (16) condicional -> . factor MAYORIGUALQUE factor
-    (17) condicional -> . factor MENORIGUALQUE factor
-    (18) condicional -> . factor IGUALQUE factor
-    (19) condicional -> . factor DIFERENTEQUE factor
-    (20) condicional -> . factor ANDLOGICO factor
-    (21) condicional -> . factor ORLOGICO factor
-    (30) term -> . term TIMES factor
-    (31) term -> . term DIVIDE factor
-    (32) term -> . factor
-    (33) factor -> . NUMBER
-    (34) factor -> . ID
-    (35) factor -> . LPAREN expression RPAREN
+    (31) expression -> . expression PLUS term
+    (32) expression -> . expression MINUS term
+    (33) expression -> . term
+    (29) cadena -> . STRING
+    (30) cadena -> . STRINGCC
+    (17) condicional -> . boolean
+    (18) condicional -> . boolOp
+    (34) term -> . term TIMES factor
+    (35) term -> . term DIVIDE factor
+    (36) term -> . factor
+    (19) boolean -> . TRUE
+    (20) boolean -> . FALSE
+    (21) boolOp -> . factor MAYORQUE factor
+    (22) boolOp -> . factor MENORQUE factor
+    (23) boolOp -> . factor MAYORIGUALQUE factor
+    (24) boolOp -> . factor MENORIGUALQUE factor
+    (25) boolOp -> . factor IGUALQUE factor
+    (26) boolOp -> . factor DIFERENTEQUE factor
+    (27) boolOp -> . factor ANDLOGICO factor
+    (28) boolOp -> . factor ORLOGICO factor
+    (37) factor -> . NUMBER
+    (38) factor -> . ID
+    (39) factor -> . LPAREN expression RPAREN
 
     IF              shift and go to state 5
     PRINT           shift and go to state 8
     PUTS            shift and go to state 11
     STRING          shift and go to state 13
     STRINGCC        shift and go to state 14
-    NUMBER          shift and go to state 16
-    ID              shift and go to state 17
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    NUMBER          shift and go to state 20
+    ID              shift and go to state 21
     LPAREN          shift and go to state 6
 
     condicional                    shift and go to state 7
-    sentencias                     shift and go to state 63
+    sentencias                     shift and go to state 67
     impresion                      shift and go to state 2
     argumento                      shift and go to state 3
     puts                           shift and go to state 4
     expression                     shift and go to state 9
     cadena                         shift and go to state 10
     term                           shift and go to state 12
-    factor                         shift and go to state 15
+    boolean                        shift and go to state 15
+    boolOp                         shift and go to state 16
+    factor                         shift and go to state 17
 
-state 62
+state 66
 
     (4) sentencias -> IF LPAREN condicional RPAREN sentencias END .
 
@@ -1221,14 +1325,14 @@ state 62
     END             reduce using rule 4 (sentencias -> IF LPAREN condicional RPAREN sentencias END .)
 
 
-state 63
+state 67
 
     (5) sentencias -> IF LPAREN condicional RPAREN THEN sentencias . END
 
-    END             shift and go to state 64
+    END             shift and go to state 68
 
 
-state 64
+state 68
 
     (5) sentencias -> IF LPAREN condicional RPAREN THEN sentencias END .
 
@@ -1238,4 +1342,4 @@ state 64
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for RPAREN in state 42 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 46 resolved as shift

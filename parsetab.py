@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ALIAS AND ANDLOGICO ASIGNACION ASIGNACIONDIVISION ASIGNACIONEXPONENCIAL ASIGNACIONMODULO ASIGNACIONPRODUCTO ASIGNACIONRESTA ASIGNACIONSUMA BREAK CADENATEXTO CARACTERX CASE CLASS CONCATSTR CONTROLX DEF DIFERENTEQUE DIVIDE DO ELSE ELSIF END ENSURE ESCAPES ESPACIOBLANCO FALSE FICHAS FOR ID IF IGUALDADESTRICTA IGUALQUE IN LPAREN MAYORIGUALQUE MAYORQUE MENORIGUALQUE MENORQUE METACONTROLX MINUS MOD MODULE NEGACION NEXT NIL NOT NOTACIONHEXA NOTACIONOCTAL NUMBER OR ORLOGICO PESTANAVERTICAL PLUS PRINT PUTS REDO RESCUE RETORNO RETRY RETURN RPAREN SALTOLINEA SALTOPAGINA SELF SPACESHIP STRING STRINGCC SUPER THEN TIMES TRUE UNDEF UNLESS UNTIL WHEN WHILE YIELD _FILE_ _LINE_sentencias : impresion\n                    | argumento\n                    | putssentencias : IF LPAREN condicional RPAREN sentencias END\n                  | IF LPAREN condicional RPAREN THEN sentencias ENDimpresion : PRINT LPAREN argumento RPAREN\n                  | PRINT argumento\n                  | PRINT LPAREN RPAREN\n                  | PRINT puts : PUTS LPAREN argumento RPAREN\n                  | PUTS argumento\n                  | PUTS LPAREN RPAREN\n                  | PUTS condicional : factor MAYORQUE factor\n                   | factor MENORQUE factor\n                   | factor MAYORIGUALQUE factor\n                   | factor MENORIGUALQUE factor\n                   | factor IGUALQUE factor\n                   | factor DIFERENTEQUE factor\n                   | factor ANDLOGICO factor\n                   | factor ORLOGICO factorargumento : expression\n                  | cadena\n                  | condicionalcadena : STRING\n               | STRINGCCexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : factorfactor : NUMBERfactor : IDfactor : LPAREN expression RPAREN'
+_lr_signature = 'ALIAS AND ANDLOGICO ASIGNACION ASIGNACIONDIVISION ASIGNACIONEXPONENCIAL ASIGNACIONMODULO ASIGNACIONPRODUCTO ASIGNACIONRESTA ASIGNACIONSUMA BREAK CADENATEXTO CARACTERX CASE CLASS CONCATSTR CONTROLX DEF DIFERENTEQUE DIVIDE DO ELSE ELSIF END ENSURE ESCAPES ESPACIOBLANCO FALSE FICHAS FOR ID IF IGUALDADESTRICTA IGUALQUE IN LPAREN MAYORIGUALQUE MAYORQUE MENORIGUALQUE MENORQUE METACONTROLX MINUS MOD MODULE NEGACION NEXT NIL NOT NOTACIONHEXA NOTACIONOCTAL NUMBER OR ORLOGICO PESTANAVERTICAL PLUS PRINT PUTS REDO RESCUE RETORNO RETRY RETURN RPAREN SALTOLINEA SALTOPAGINA SELF SPACESHIP STRING STRINGCC SUPER THEN TIMES TRUE UNDEF UNLESS UNTIL WHEN WHILE YIELD _FILE_ _LINE_sentencias : impresion\n                    | argumento\n                    | putssentencias : IF LPAREN condicional RPAREN sentencias END\n                  | IF LPAREN condicional RPAREN THEN sentencias ENDimpresion : PRINT LPAREN argumento RPAREN\n                  | PRINT argumento\n                  | PRINT LPAREN RPAREN\n                  | PRINT puts : PUTS LPAREN argumento RPAREN\n                  | PUTS argumento\n                  | PUTS LPAREN RPAREN\n                  | PUTS argumento : expression\n                  | cadena\n                  | condicionalcondicional : boolean\n                 | boolOpboolean : TRUE\n               | FALSEboolOp : factor MAYORQUE factor\n                   | factor MENORQUE factor\n                   | factor MAYORIGUALQUE factor\n                   | factor MENORIGUALQUE factor\n                   | factor IGUALQUE factor\n                   | factor DIFERENTEQUE factor\n                   | factor ANDLOGICO factor\n                   | factor ORLOGICO factorcadena : STRING\n               | STRINGCCexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : factorfactor : NUMBERfactor : IDfactor : LPAREN expression RPAREN'
     
-_lr_action_items = {'IF':([0,57,61,],[5,5,5,]),'PRINT':([0,57,61,],[8,8,8,]),'PUTS':([0,57,61,],[11,11,11,]),'STRING':([0,8,11,21,25,57,61,],[13,13,13,13,13,13,13,]),'STRINGCC':([0,8,11,21,25,57,61,],[14,14,14,14,14,14,14,]),'NUMBER':([0,6,8,11,18,21,23,24,25,27,28,29,30,31,32,33,34,35,36,57,61,],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'ID':([0,6,8,11,18,21,23,24,25,27,28,29,30,31,32,33,34,35,36,57,61,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'LPAREN':([0,5,6,8,11,18,21,23,24,25,27,28,29,30,31,32,33,34,35,36,57,61,],[6,18,6,21,25,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,]),'$end':([1,2,3,4,7,8,9,10,11,12,13,14,15,16,17,20,22,26,39,41,43,44,46,47,48,49,50,51,52,53,54,55,56,58,59,62,64,],[0,-1,-2,-3,-24,-9,-22,-23,-13,-29,-25,-26,-32,-33,-34,-32,-7,-11,-35,-8,-27,-28,-12,-30,-31,-14,-15,-16,-17,-18,-19,-20,-21,-6,-10,-4,-5,]),'END':([2,3,4,7,8,9,10,11,12,13,14,15,16,17,20,22,26,39,41,43,44,46,47,48,49,50,51,52,53,54,55,56,58,59,60,62,63,64,],[-1,-2,-3,-24,-9,-22,-23,-13,-29,-25,-26,-32,-33,-34,-32,-7,-11,-35,-8,-27,-28,-12,-30,-31,-14,-15,-16,-17,-18,-19,-20,-21,-6,-10,62,-4,64,-5,]),'RPAREN':([7,10,12,13,14,15,16,17,19,20,21,25,37,39,40,42,43,44,45,47,48,49,50,51,52,53,54,55,56,],[-24,-23,-29,-25,-26,-32,-33,-34,39,-32,41,46,57,-35,58,39,-27,-28,59,-30,-31,-14,-15,-16,-17,-18,-19,-20,-21,]),'PLUS':([9,12,15,16,17,19,20,39,42,43,44,47,48,],[23,-29,-32,-33,-34,23,-32,-35,23,-27,-28,-30,-31,]),'MINUS':([9,12,15,16,17,19,20,39,42,43,44,47,48,],[24,-29,-32,-33,-34,24,-32,-35,24,-27,-28,-30,-31,]),'TIMES':([12,15,16,17,20,39,43,44,47,48,],[27,-32,-33,-34,-32,-35,27,27,-30,-31,]),'DIVIDE':([12,15,16,17,20,39,43,44,47,48,],[28,-32,-33,-34,-32,-35,28,28,-30,-31,]),'MAYORQUE':([15,16,17,38,39,],[29,-33,-34,29,-35,]),'MENORQUE':([15,16,17,38,39,],[30,-33,-34,30,-35,]),'MAYORIGUALQUE':([15,16,17,38,39,],[31,-33,-34,31,-35,]),'MENORIGUALQUE':([15,16,17,38,39,],[32,-33,-34,32,-35,]),'IGUALQUE':([15,16,17,38,39,],[33,-33,-34,33,-35,]),'DIFERENTEQUE':([15,16,17,38,39,],[34,-33,-34,34,-35,]),'ANDLOGICO':([15,16,17,38,39,],[35,-33,-34,35,-35,]),'ORLOGICO':([15,16,17,38,39,],[36,-33,-34,36,-35,]),'THEN':([57,],[61,]),}
+_lr_action_items = {'IF':([0,61,65,],[5,5,5,]),'PRINT':([0,61,65,],[8,8,8,]),'PUTS':([0,61,65,],[11,11,11,]),'STRING':([0,8,11,25,29,61,65,],[13,13,13,13,13,13,13,]),'STRINGCC':([0,8,11,25,29,61,65,],[14,14,14,14,14,14,14,]),'TRUE':([0,8,11,22,25,29,61,65,],[18,18,18,18,18,18,18,18,]),'FALSE':([0,8,11,22,25,29,61,65,],[19,19,19,19,19,19,19,19,]),'NUMBER':([0,6,8,11,22,25,27,28,29,31,32,33,34,35,36,37,38,39,40,61,65,],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,]),'ID':([0,6,8,11,22,25,27,28,29,31,32,33,34,35,36,37,38,39,40,61,65,],[21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,]),'LPAREN':([0,5,6,8,11,22,25,27,28,29,31,32,33,34,35,36,37,38,39,40,61,65,],[6,22,6,25,29,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,]),'$end':([1,2,3,4,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,24,26,30,43,45,47,48,50,51,52,53,54,55,56,57,58,59,60,62,63,66,68,],[0,-1,-2,-3,-16,-9,-14,-15,-13,-33,-29,-30,-17,-18,-36,-19,-20,-37,-38,-36,-7,-11,-39,-8,-31,-32,-12,-34,-35,-21,-22,-23,-24,-25,-26,-27,-28,-6,-10,-4,-5,]),'END':([2,3,4,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,24,26,30,43,45,47,48,50,51,52,53,54,55,56,57,58,59,60,62,63,64,66,67,68,],[-1,-2,-3,-16,-9,-14,-15,-13,-33,-29,-30,-17,-18,-36,-19,-20,-37,-38,-36,-7,-11,-39,-8,-31,-32,-12,-34,-35,-21,-22,-23,-24,-25,-26,-27,-28,-6,-10,66,-4,68,-5,]),'RPAREN':([7,10,12,13,14,15,16,17,18,19,20,21,23,24,25,29,41,43,44,46,47,48,49,51,52,53,54,55,56,57,58,59,60,],[-16,-15,-33,-29,-30,-17,-18,-36,-19,-20,-37,-38,43,-36,45,50,61,-39,62,43,-31,-32,63,-34,-35,-21,-22,-23,-24,-25,-26,-27,-28,]),'PLUS':([9,12,17,20,21,23,24,43,46,47,48,51,52,],[27,-33,-36,-37,-38,27,-36,-39,27,-31,-32,-34,-35,]),'MINUS':([9,12,17,20,21,23,24,43,46,47,48,51,52,],[28,-33,-36,-37,-38,28,-36,-39,28,-31,-32,-34,-35,]),'TIMES':([12,17,20,21,24,43,47,48,51,52,],[31,-36,-37,-38,-36,-39,31,31,-34,-35,]),'DIVIDE':([12,17,20,21,24,43,47,48,51,52,],[32,-36,-37,-38,-36,-39,32,32,-34,-35,]),'MAYORQUE':([17,20,21,42,43,],[33,-37,-38,33,-39,]),'MENORQUE':([17,20,21,42,43,],[34,-37,-38,34,-39,]),'MAYORIGUALQUE':([17,20,21,42,43,],[35,-37,-38,35,-39,]),'MENORIGUALQUE':([17,20,21,42,43,],[36,-37,-38,36,-39,]),'IGUALQUE':([17,20,21,42,43,],[37,-37,-38,37,-39,]),'DIFERENTEQUE':([17,20,21,42,43,],[38,-37,-38,38,-39,]),'ANDLOGICO':([17,20,21,42,43,],[39,-37,-38,39,-39,]),'ORLOGICO':([17,20,21,42,43,],[40,-37,-38,40,-39,]),'THEN':([61,],[65,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'sentencias':([0,57,61,],[1,60,63,]),'impresion':([0,57,61,],[2,2,2,]),'argumento':([0,8,11,21,25,57,61,],[3,22,26,40,45,3,3,]),'puts':([0,57,61,],[4,4,4,]),'condicional':([0,8,11,18,21,25,57,61,],[7,7,7,37,7,7,7,7,]),'expression':([0,6,8,11,21,25,57,61,],[9,19,9,9,42,42,9,9,]),'cadena':([0,8,11,21,25,57,61,],[10,10,10,10,10,10,10,]),'term':([0,6,8,11,21,23,24,25,57,61,],[12,12,12,12,12,43,44,12,12,12,]),'factor':([0,6,8,11,18,21,23,24,25,27,28,29,30,31,32,33,34,35,36,57,61,],[15,20,15,15,38,15,20,20,15,47,48,49,50,51,52,53,54,55,56,15,15,]),}
+_lr_goto_items = {'sentencias':([0,61,65,],[1,64,67,]),'impresion':([0,61,65,],[2,2,2,]),'argumento':([0,8,11,25,29,61,65,],[3,26,30,44,49,3,3,]),'puts':([0,61,65,],[4,4,4,]),'condicional':([0,8,11,22,25,29,61,65,],[7,7,7,41,7,7,7,7,]),'expression':([0,6,8,11,25,29,61,65,],[9,23,9,9,46,46,9,9,]),'cadena':([0,8,11,25,29,61,65,],[10,10,10,10,10,10,10,]),'term':([0,6,8,11,25,27,28,29,61,65,],[12,12,12,12,12,47,48,12,12,12,]),'boolean':([0,8,11,22,25,29,61,65,],[15,15,15,15,15,15,15,15,]),'boolOp':([0,8,11,22,25,29,61,65,],[16,16,16,16,16,16,16,16,]),'factor':([0,6,8,11,22,25,27,28,29,31,32,33,34,35,36,37,38,39,40,61,65,],[17,24,17,17,42,17,24,24,17,51,52,53,54,55,56,57,58,59,60,17,17,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -40,26 +40,30 @@ _lr_productions = [
   ('puts -> PUTS argumento','puts',2,'p_puts','sintactico.py',22),
   ('puts -> PUTS LPAREN RPAREN','puts',3,'p_puts','sintactico.py',23),
   ('puts -> PUTS','puts',1,'p_puts','sintactico.py',24),
-  ('condicional -> factor MAYORQUE factor','condicional',3,'p_condicional','sintactico.py',26),
-  ('condicional -> factor MENORQUE factor','condicional',3,'p_condicional','sintactico.py',27),
-  ('condicional -> factor MAYORIGUALQUE factor','condicional',3,'p_condicional','sintactico.py',28),
-  ('condicional -> factor MENORIGUALQUE factor','condicional',3,'p_condicional','sintactico.py',29),
-  ('condicional -> factor IGUALQUE factor','condicional',3,'p_condicional','sintactico.py',30),
-  ('condicional -> factor DIFERENTEQUE factor','condicional',3,'p_condicional','sintactico.py',31),
-  ('condicional -> factor ANDLOGICO factor','condicional',3,'p_condicional','sintactico.py',32),
-  ('condicional -> factor ORLOGICO factor','condicional',3,'p_condicional','sintactico.py',33),
-  ('argumento -> expression','argumento',1,'p_argumento','sintactico.py',36),
-  ('argumento -> cadena','argumento',1,'p_argumento','sintactico.py',37),
-  ('argumento -> condicional','argumento',1,'p_argumento','sintactico.py',38),
-  ('cadena -> STRING','cadena',1,'p_argumento_cadena','sintactico.py',40),
-  ('cadena -> STRINGCC','cadena',1,'p_argumento_cadena','sintactico.py',41),
-  ('expression -> expression PLUS term','expression',3,'p_expression_plus','sintactico.py',43),
-  ('expression -> expression MINUS term','expression',3,'p_expression_minus','sintactico.py',48),
-  ('expression -> term','expression',1,'p_expression_term','sintactico.py',53),
-  ('term -> term TIMES factor','term',3,'p_term_times','sintactico.py',58),
-  ('term -> term DIVIDE factor','term',3,'p_term_div','sintactico.py',63),
-  ('term -> factor','term',1,'p_term_factor','sintactico.py',68),
-  ('factor -> NUMBER','factor',1,'p_factor_num','sintactico.py',73),
-  ('factor -> ID','factor',1,'p_factor_var','sintactico.py',77),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','sintactico.py',80),
+  ('argumento -> expression','argumento',1,'p_argumento','sintactico.py',28),
+  ('argumento -> cadena','argumento',1,'p_argumento','sintactico.py',29),
+  ('argumento -> condicional','argumento',1,'p_argumento','sintactico.py',30),
+  ('condicional -> boolean','condicional',1,'p_condicional','sintactico.py',33),
+  ('condicional -> boolOp','condicional',1,'p_condicional','sintactico.py',34),
+  ('boolean -> TRUE','boolean',1,'p_boolean','sintactico.py',36),
+  ('boolean -> FALSE','boolean',1,'p_boolean','sintactico.py',37),
+  ('boolOp -> factor MAYORQUE factor','boolOp',3,'p_boolOp','sintactico.py',40),
+  ('boolOp -> factor MENORQUE factor','boolOp',3,'p_boolOp','sintactico.py',41),
+  ('boolOp -> factor MAYORIGUALQUE factor','boolOp',3,'p_boolOp','sintactico.py',42),
+  ('boolOp -> factor MENORIGUALQUE factor','boolOp',3,'p_boolOp','sintactico.py',43),
+  ('boolOp -> factor IGUALQUE factor','boolOp',3,'p_boolOp','sintactico.py',44),
+  ('boolOp -> factor DIFERENTEQUE factor','boolOp',3,'p_boolOp','sintactico.py',45),
+  ('boolOp -> factor ANDLOGICO factor','boolOp',3,'p_boolOp','sintactico.py',46),
+  ('boolOp -> factor ORLOGICO factor','boolOp',3,'p_boolOp','sintactico.py',47),
+  ('cadena -> STRING','cadena',1,'p_argumento_cadena','sintactico.py',49),
+  ('cadena -> STRINGCC','cadena',1,'p_argumento_cadena','sintactico.py',50),
+  ('expression -> expression PLUS term','expression',3,'p_expression_plus','sintactico.py',52),
+  ('expression -> expression MINUS term','expression',3,'p_expression_minus','sintactico.py',57),
+  ('expression -> term','expression',1,'p_expression_term','sintactico.py',62),
+  ('term -> term TIMES factor','term',3,'p_term_times','sintactico.py',67),
+  ('term -> term DIVIDE factor','term',3,'p_term_div','sintactico.py',72),
+  ('term -> factor','term',1,'p_term_factor','sintactico.py',77),
+  ('factor -> NUMBER','factor',1,'p_factor_num','sintactico.py',82),
+  ('factor -> ID','factor',1,'p_factor_var','sintactico.py',86),
+  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','sintactico.py',89),
 ]
