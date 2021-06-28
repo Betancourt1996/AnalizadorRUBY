@@ -7,6 +7,7 @@ def p_sentencias(p):
     """sentencias : impresion
                     | argumento
                     | puts"""
+#BETANCOURT COMIENZA____________________________________________________________________________________________
 def p_sentencias_if(p):
     '''sentencias : IF LPAREN condicional RPAREN sentencias END
                   | IF LPAREN condicional RPAREN THEN sentencias END
@@ -23,7 +24,7 @@ def p_elseifanidado(p):
     '''elseifanidado : ELSEIF sentencias
                     | ELSEIF sentencias elseifanidado
                     | empty'''
-#BETANCOURT COMIENZA____________________________________________________________________________________________
+
 # def p_sentencias_whileBegin(p):
 #     '''sentencias : BEGIN  sentencias END WHILE condicional
 #                   | BEGIN  sentencias END WHILE LPAREN condicional RPAREN'''
@@ -32,6 +33,16 @@ def p_sentencias_until(p):
                       | UNTIL  condicional  DO sentencias END
                       | UNTIL LPAREN condicional RPAREN  sentencias END
                       | UNTIL  condicional   sentencias END'''
+def p_sentencias_case(p):
+    '''sentencias : CASE expression whenMuchos END
+                  | CASE expression whenMuchos ELSE sentencias END'''
+def p_whenMuchos(p):
+    '''whenMuchos : WHEN rangeYespression sentencias
+                  | WHEN rangeYespression sentencias whenMuchos
+                  | empty'''
+def p_rangeYexpression(p):
+    '''rangeYespression : range
+                        | expression'''
 def p_sentencias_while(p):
     '''sentencias : WHILE LPAREN condicional RPAREN DO sentencias END
                       | WHILE  condicional  DO sentencias END
@@ -57,7 +68,9 @@ def p_argumento(p):
                   | cadena
                   | condicional'''
 def p_iterable(p):
-    '''iterable : expression DOBLEPUNTO expression'''
+    '''iterable : range'''
+def p_range(p):
+    '''range : expression DOBLEPUNTO expression'''
 def p_condicional(p):
     '''condicional : boolean
                  | boolOp'''
