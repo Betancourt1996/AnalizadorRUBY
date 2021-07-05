@@ -6,7 +6,9 @@ from AnalizadorRUBY.AnalizadorRuby import tokens
 def p_sentencias(p):
     """sentencias : impresion
                     | argumento
-                    | puts"""
+                    | puts
+                    | asignacion"""
+
 #BETANCOURT COMIENZA____________________________________________________________________________________________
 def p_sentencias_if(p):
     '''sentencias : IF LPAREN condicional RPAREN sentencias END
@@ -16,6 +18,8 @@ def p_sentencias_unless(p):
     '''sentencias : UNLESS LPAREN condicional RPAREN sentencias END
                   | UNLESS LPAREN condicional RPAREN THEN sentencias END
                   | UNLESS LPAREN condicional RPAREN sentencias elseifanidado  ELSE sentencias END'''
+def p_asignacion(p):
+    'asignacion : ID EQUALS variable'
 def p_empty(p):
     'empty :'
     pass
@@ -59,37 +63,53 @@ def p_impresion(p):
                   | PRINT '''
 
 def p_puts(p):
-    '''puts : PUTS LPAREN argumento RPAREN
+    '''puts : PUTS LPAREN argumento RPAREN END
                   | PUTS argumento
                   | PUTS LPAREN RPAREN
                   | PUTS '''
-
+def p_variable(p):
+    '''variable : condicional
+                | cadena
+                | expression
+                | iterable'''
 def p_argumento(p):
-    '''argumento : expression
-                  | cadena
-                  | condicional'''
+    '''argumento : variable'''
 def p_iterable(p):
     '''iterable : range'''
 def p_range(p):
     '''range : expression DOBLEPUNTO expression'''
+#REGLAS PARA DEFINIR BOOLEANOS----------------------------------------------
 def p_condicional(p):
-    '''condicional : boolean
-                 | boolOp'''
+    '''condicional : logicalOperation'''
+def p_logicalOperation(p):
+    'logicalOperation : logicalOperation logicalOp logicalOperation'
+def p_logicalOp(p):
+    '''logicalOp : AND
+                | OR'''
+def p_logicalOperation_logicalValue(p):
+    '''logicalOperation : boolean
+                        | ID'''
 def p_boolean(p):
     '''boolean : TRUE
-               | FALSE'''
+               | FALSE
+               | exprBool'''
+#REGLAS QUE DEVUELVEN BOOLEANOS
+def p_exprBool_boolOperation(p):
+    'exprBool : exprBool boolOperator exprBool'
 
-def p_boolOp(p):
-    '''boolOp : factor MAYORQUE factor
-                   | factor MENORQUE factor
-                   | factor MAYORIGUALQUE factor
-                   | factor MENORIGUALQUE factor
-                   | factor IGUALQUE factor
-                   | factor DIFERENTEQUE factor
-                   | factor ANDLOGICO factor
-                   | factor ORLOGICO factor'''
+def p_boolOperator(p):
+    '''boolOperator :  MAYORQUE
+                   |  MENORQUE
+                   |  MAYORIGUALQUE
+                   |  MENORIGUALQUE
+                   |  IGUALQUE
+                   |  DIFERENTEQUE
+                   |  ANDLOGICO
+                   |  ORLOGICO '''
+def p_exprBool_notBool(p):
+    'exprBool : factor'
 # BETANCOURT TERMINA_________________________________________________________________________________
-def p_argumento_cadena(p):
+def p_cadena(p):
     '''cadena : STRING
                | STRINGCC'''
 def p_expression_plus(p):

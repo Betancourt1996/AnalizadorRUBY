@@ -47,6 +47,7 @@ reserved = {
 }
 tokens = (
     'NUMBER',
+#    'FLOAT',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -102,6 +103,7 @@ tokens = (
 
 ) + tuple(reserved.values())
 # Regular expression rules for simple tokens
+#t_FLOAT = r'\d+\.\d+'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -109,6 +111,7 @@ t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_MOD = r'%'
+
 #EMPIEZA REGLAS CARACTERES ESPECIALES BETANCOURT---------------
 t_SALTOLINEA = r'\\n'
 t_CONCATSTR = r'\\a'
@@ -158,6 +161,7 @@ nondigit = r'([_A-Za-z])'
 variableRuby = empiezaVarRuby+nondigit+r'[\w]*'
 @TOKEN(variableRuby)#Reconoce variables ruby ãlgo @@algo @algo
 #TERMINA Betancourt-----------------------------------------------------------------------------
+
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
