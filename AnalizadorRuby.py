@@ -54,6 +54,12 @@ tokens = (
     'DIVIDE',
     'LPAREN',
     'RPAREN',
+    'LCORCHETE',
+    'RCORCHETE',
+    'LLLAVE',
+    'RLLAVE',
+    'DOSPUNTOS',
+    'COMA',
     'MOD',
     'ID',
 #BETANCOURT----------------------------- Caracteres de escape
@@ -110,6 +116,12 @@ t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
+t_LCORCHETE = r'\['
+t_RCORCHETE = r'\]'
+t_COMA = r','
+t_DOSPUNTOS = r':'
+t_LLLAVE = r'{'
+t_RLLAVE = r'}'
 t_MOD = r'%'
 
 #EMPIEZA REGLAS CARACTERES ESPECIALES BETANCOURT---------------

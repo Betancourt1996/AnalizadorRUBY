@@ -19,7 +19,8 @@ def p_sentencias_unless(p):
                   | UNLESS LPAREN condicional RPAREN THEN sentencias END
                   | UNLESS LPAREN condicional RPAREN sentencias elseifanidado  ELSE sentencias END'''
 def p_asignacion(p):
-    'asignacion : ID EQUALS variable'
+    '''asignacion : ID EQUALS variable
+                  | ID LCORCHETE NUMBER RCORCHETE EQUALS iterable'''
 def p_empty(p):
     'empty :'
     pass
@@ -72,10 +73,29 @@ def p_variable(p):
                 | cadena
                 | expression
                 | iterable'''
+def p_dato(p):
+    '''dato : NUMBER
+            | cadena
+            | boolean'''
 def p_argumento(p):
     '''argumento : variable'''
 def p_iterable(p):
-    '''iterable : range'''
+    '''iterable : range
+                | array
+                | hash'''
+def p_array(p):
+    'array : LCORCHETE valorArray RCORCHETE'
+
+def p_valorArray(p):
+    '''valorArray : dato COMA valorArray
+                  | dato '''
+def p_hash(p):
+    'hash : LLLAVE claveValor RLLAVE'
+def p_claveValor(p):
+    '''claveValor : cadena DOSPUNTOS variable COMA claveValor
+                  | cadena DOSPUNTOS variable
+                  | NUMBER DOSPUNTOS variable COMA claveValor
+                  | NUMBER DOSPUNTOS variable '''
 def p_range(p):
     '''range : expression DOBLEPUNTO expression'''
 #REGLAS PARA DEFINIR BOOLEANOS----------------------------------------------
