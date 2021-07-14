@@ -97,9 +97,7 @@ def sintactico(self):
     print("Sintactico")
     self.errores.clear()
     extraido=self.texto.toPlainText()
-
     strErrores=buildLSemantico(extraido)
-    print(strErrores)
     if(strErrores[1]=="Error"):
         self.errores.setPlainText("Syntax error in input!")
 
@@ -115,7 +113,6 @@ def semantico(self):
     extraido = self.texto.toPlainText()
 
     strErrores = buildLSemantico(extraido)
-    print(strErrores)
     if (strErrores[1] == "Error"):
         self.errores.setPlainText("Syntax error in input!")
 

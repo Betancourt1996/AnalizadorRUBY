@@ -30,10 +30,6 @@ def p_elseifanidado(p):
                     | ELSEIF sentencias elseifanidado
                     | empty'''
 
-# def p_sentencias_whileBegin(p):
-#     '''sentencias : BEGIN  sentencias END WHILE condicional
-#                   | BEGIN  sentencias END WHILE LPAREN condicional RPAREN'''
-
 def p_sentencias_until(p):
     '''sentencias : UNTIL LPAREN condicional RPAREN DO sentencias END
                       | UNTIL  condicional  DO sentencias END
@@ -112,7 +108,8 @@ def p_logicalOperation_logicalValue(p):
 def p_boolean(p):
     '''boolean : TRUE
                | FALSE
-               | exprBool'''
+               | exprBool
+               | NEGACION boolean'''
 #REGLAS QUE DEVUELVEN BOOLEANOS
 def p_exprBool_boolOperation(p):
     'exprBool : exprBool boolOperator exprBool'
@@ -165,7 +162,9 @@ def p_term_factor(p):
 def p_factor_num(p):
     'factor : NUMBER'
     p[0] = p[1]
-
+def p_factor_float(p):
+    'factor : FLOAT'
+    p[0] = p[1]
 def p_factor_var(p):
     'factor : ID'
     p[0] = p[1]
@@ -189,16 +188,3 @@ def buildLSemantico(s):
 
     return result,strErr
 
-# buildLSemantico("a=25")
-#
-#     parser = yacc.yacc()
-#
-#     while True:
-#         try:
-#             # s = input('calc > ')
-#             s="= var 24"
-#         except EOFError:
-#             break
-#         if not s: continue
-#         result = parser.parse(s)
-#         print(result)
