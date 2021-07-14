@@ -47,7 +47,7 @@ reserved = {
 }
 tokens = (
     'NUMBER',
-#    'FLOAT',
+    'FLOAT',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -123,7 +123,8 @@ t_DOSPUNTOS = r':'
 t_LLLAVE = r'{'
 t_RLLAVE = r'}'
 t_MOD = r'%'
-
+t_FLOAT = r'\d+\.\d+'
+t_NUMBER = r'\d+'
 #EMPIEZA REGLAS CARACTERES ESPECIALES BETANCOURT---------------
 t_SALTOLINEA = r'\\n'
 t_CONCATSTR = r'\\a'
@@ -179,10 +180,10 @@ def t_ID(t):
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
 # A regular expression rule with some action code
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
+# def t_NUMBER(t):
+#     r'\d+'
+#     t.value = int(t.value)
+#     return t
 # Define a rule so we can track line numbers
 
 def t_newline(t):
@@ -198,13 +199,37 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 def getTokens(lexer):
+    lista=[]
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
         print(tok)
+        lista.append(tok)
+    return lista
 # Build the lexer
 lexer = lex.lex()
+def leer(linea):
+
+
+    lexer.input(linea)
+    lista=getTokens(lexer)
+    # Tokenize
+    print("Succesfull")
+    return lista
+
+# def leer(linea):
+#     lexer = lex.lex()
+#     linea=" "
+#     while linea!="":
+#         linea=input(">>")
+#         lexer.input(linea)
+#         getTokens(lexer)
+#     # Tokenize
+#     print("Succesfull")
+
+# Build the lexer
+# lexer = lex.lex()
 # linea=" "
 # while linea!="":
 #     linea=input(">>")

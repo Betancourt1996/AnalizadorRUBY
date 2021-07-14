@@ -175,19 +175,30 @@ def p_factor_expr(p):
 
 
 # Error rule for syntax errors
+strErr=""
 def p_error(p):
     print("Syntax error in input!")
-
-# def p_asignacion(p):
-#     'asignacion : ID  EQUALS NUMBER'
+    global strErr
+    strErr="Error"
 # Build the parser
-parser = yacc.yacc()
-
-while True:
-    try:
-        s = input('calc > ')
-    except EOFError:
-        break
-    if not s: continue
+def buildLSemantico(s):
+    global strErr
+    strErr = ""
+    parser = yacc.yacc()
     result = parser.parse(s)
-    print(result)
+
+    return result,strErr
+
+# buildLSemantico("a=25")
+#
+#     parser = yacc.yacc()
+#
+#     while True:
+#         try:
+#             # s = input('calc > ')
+#             s="= var 24"
+#         except EOFError:
+#             break
+#         if not s: continue
+#         result = parser.parse(s)
+#         print(result)
