@@ -20,8 +20,8 @@ Rule 10    sentencias -> UNLESS LPAREN condicional RPAREN sentencias elseifanida
 Rule 11    asignacion -> ID EQUALS variable
 Rule 12    asignacion -> ID LCORCHETE NUMBER RCORCHETE EQUALS iterable
 Rule 13    empty -> <empty>
-Rule 14    elseifanidado -> ELSEIF sentencias
-Rule 15    elseifanidado -> ELSEIF sentencias elseifanidado
+Rule 14    elseifanidado -> ELSEIF condicional sentencias
+Rule 15    elseifanidado -> ELSEIF condicional sentencias elseifanidado
 Rule 16    elseifanidado -> empty
 Rule 17    sentencias -> UNTIL LPAREN condicional RPAREN DO sentencias END
 Rule 18    sentencias -> UNTIL condicional DO sentencias END
@@ -162,7 +162,7 @@ boolOperator         : 72
 boolean              : 48 66 71
 cadena               : 43 47 57 58
 claveValor           : 56 57 59
-condicional          : 5 6 7 8 9 10 17 18 19 20 28 29 30 31 42
+condicional          : 5 6 7 8 9 10 14 15 17 18 19 20 28 29 30 31 42
 dato                 : 54 55
 elseifanidado        : 7 10 15
 empty                : 16 25
@@ -4578,8 +4578,8 @@ state 137
 
     (5) sentencias -> IF LPAREN condicional RPAREN sentencias . END
     (7) sentencias -> IF LPAREN condicional RPAREN sentencias . elseifanidado ELSE sentencias END
-    (14) elseifanidado -> . ELSEIF sentencias
-    (15) elseifanidado -> . ELSEIF sentencias elseifanidado
+    (14) elseifanidado -> . ELSEIF condicional sentencias
+    (15) elseifanidado -> . ELSEIF condicional sentencias elseifanidado
     (16) elseifanidado -> . empty
     (13) empty -> .
 
@@ -4702,8 +4702,8 @@ state 139
 
     (8) sentencias -> UNLESS LPAREN condicional RPAREN sentencias . END
     (10) sentencias -> UNLESS LPAREN condicional RPAREN sentencias . elseifanidado ELSE sentencias END
-    (14) elseifanidado -> . ELSEIF sentencias
-    (15) elseifanidado -> . ELSEIF sentencias elseifanidado
+    (14) elseifanidado -> . ELSEIF condicional sentencias
+    (15) elseifanidado -> . ELSEIF condicional sentencias elseifanidado
     (16) elseifanidado -> . empty
     (13) empty -> .
 
@@ -5317,87 +5317,24 @@ state 156
 
 state 157
 
-    (14) elseifanidado -> ELSEIF . sentencias
-    (15) elseifanidado -> ELSEIF . sentencias elseifanidado
-    (1) sentencias -> . impresion
-    (2) sentencias -> . argumento
-    (3) sentencias -> . puts
-    (4) sentencias -> . asignacion
-    (5) sentencias -> . IF LPAREN condicional RPAREN sentencias END
-    (6) sentencias -> . IF LPAREN condicional RPAREN THEN sentencias END
-    (7) sentencias -> . IF LPAREN condicional RPAREN sentencias elseifanidado ELSE sentencias END
-    (8) sentencias -> . UNLESS LPAREN condicional RPAREN sentencias END
-    (9) sentencias -> . UNLESS LPAREN condicional RPAREN THEN sentencias END
-    (10) sentencias -> . UNLESS LPAREN condicional RPAREN sentencias elseifanidado ELSE sentencias END
-    (17) sentencias -> . UNTIL LPAREN condicional RPAREN DO sentencias END
-    (18) sentencias -> . UNTIL condicional DO sentencias END
-    (19) sentencias -> . UNTIL LPAREN condicional RPAREN sentencias END
-    (20) sentencias -> . UNTIL condicional sentencias END
-    (21) sentencias -> . CASE expression whenMuchos END
-    (22) sentencias -> . CASE expression whenMuchos ELSE sentencias END
-    (28) sentencias -> . WHILE LPAREN condicional RPAREN DO sentencias END
-    (29) sentencias -> . WHILE condicional DO sentencias END
-    (30) sentencias -> . WHILE LPAREN condicional RPAREN sentencias END
-    (31) sentencias -> . WHILE condicional sentencias END
-    (32) sentencias -> . FOR ID IN iterable sentencias END
-    (33) sentencias -> . FOR ID IN iterable DO sentencias END
-    (34) impresion -> . PRINT LPAREN argumento RPAREN
-    (35) impresion -> . PRINT argumento
-    (36) impresion -> . PRINT LPAREN RPAREN
-    (37) impresion -> . PRINT
-    (49) argumento -> . variable
-    (38) puts -> . PUTS LPAREN argumento RPAREN END
-    (39) puts -> . PUTS argumento
-    (40) puts -> . PUTS LPAREN RPAREN
-    (41) puts -> . PUTS
-    (11) asignacion -> . ID EQUALS variable
-    (12) asignacion -> . ID LCORCHETE NUMBER RCORCHETE EQUALS iterable
-    (42) variable -> . condicional
-    (43) variable -> . cadena
-    (44) variable -> . expression
-    (45) variable -> . iterable
+    (14) elseifanidado -> ELSEIF . condicional sentencias
+    (15) elseifanidado -> ELSEIF . condicional sentencias elseifanidado
     (62) condicional -> . logicalOperation
-    (82) cadena -> . STRING
-    (83) cadena -> . STRINGCC
-    (84) expression -> . expression PLUS term
-    (85) expression -> . expression MINUS term
-    (86) expression -> . term
-    (50) iterable -> . range
-    (51) iterable -> . array
-    (52) iterable -> . hash
     (63) logicalOperation -> . logicalOperation logicalOp logicalOperation
     (66) logicalOperation -> . boolean
     (67) logicalOperation -> . ID
-    (87) term -> . term TIMES factor
-    (88) term -> . term DIVIDE factor
-    (89) term -> . factor
-    (61) range -> . expression DOBLEPUNTO expression
-    (53) array -> . LCORCHETE valorArray RCORCHETE
-    (56) hash -> . LLLAVE claveValor RLLAVE
     (68) boolean -> . TRUE
     (69) boolean -> . FALSE
     (70) boolean -> . exprBool
     (71) boolean -> . NEGACION boolean
+    (72) exprBool -> . exprBool boolOperator exprBool
+    (81) exprBool -> . factor
     (90) factor -> . NUMBER
     (91) factor -> . FLOAT
     (92) factor -> . ID
     (93) factor -> . LPAREN expression RPAREN
-    (72) exprBool -> . exprBool boolOperator exprBool
-    (81) exprBool -> . factor
 
-    IF              shift and go to state 6
-    UNLESS          shift and go to state 9
-    UNTIL           shift and go to state 10
-    CASE            shift and go to state 11
-    WHILE           shift and go to state 13
-    FOR             shift and go to state 14
-    PRINT           shift and go to state 17
-    PUTS            shift and go to state 19
-    ID              shift and go to state 15
-    STRING          shift and go to state 24
-    STRINGCC        shift and go to state 25
-    LCORCHETE       shift and go to state 20
-    LLLAVE          shift and go to state 32
+    ID              shift and go to state 45
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NEGACION        shift and go to state 36
@@ -5405,24 +5342,11 @@ state 157
     FLOAT           shift and go to state 37
     LPAREN          shift and go to state 7
 
-    sentencias                     shift and go to state 175
-    impresion                      shift and go to state 2
-    argumento                      shift and go to state 3
-    puts                           shift and go to state 4
-    asignacion                     shift and go to state 5
-    condicional                    shift and go to state 8
-    expression                     shift and go to state 12
-    iterable                       shift and go to state 16
-    variable                       shift and go to state 18
-    cadena                         shift and go to state 22
+    condicional                    shift and go to state 175
     logicalOperation               shift and go to state 23
-    term                           shift and go to state 26
-    range                          shift and go to state 27
-    array                          shift and go to state 28
-    hash                           shift and go to state 29
     boolean                        shift and go to state 30
-    factor                         shift and go to state 31
     exprBool                       shift and go to state 35
+    factor                         shift and go to state 46
 
 state 158
 
@@ -5671,21 +5595,112 @@ state 174
 
 state 175
 
-    (14) elseifanidado -> ELSEIF sentencias .
-    (15) elseifanidado -> ELSEIF sentencias . elseifanidado
-    (14) elseifanidado -> . ELSEIF sentencias
-    (15) elseifanidado -> . ELSEIF sentencias elseifanidado
-    (16) elseifanidado -> . empty
-    (13) empty -> .
+    (14) elseifanidado -> ELSEIF condicional . sentencias
+    (15) elseifanidado -> ELSEIF condicional . sentencias elseifanidado
+    (1) sentencias -> . impresion
+    (2) sentencias -> . argumento
+    (3) sentencias -> . puts
+    (4) sentencias -> . asignacion
+    (5) sentencias -> . IF LPAREN condicional RPAREN sentencias END
+    (6) sentencias -> . IF LPAREN condicional RPAREN THEN sentencias END
+    (7) sentencias -> . IF LPAREN condicional RPAREN sentencias elseifanidado ELSE sentencias END
+    (8) sentencias -> . UNLESS LPAREN condicional RPAREN sentencias END
+    (9) sentencias -> . UNLESS LPAREN condicional RPAREN THEN sentencias END
+    (10) sentencias -> . UNLESS LPAREN condicional RPAREN sentencias elseifanidado ELSE sentencias END
+    (17) sentencias -> . UNTIL LPAREN condicional RPAREN DO sentencias END
+    (18) sentencias -> . UNTIL condicional DO sentencias END
+    (19) sentencias -> . UNTIL LPAREN condicional RPAREN sentencias END
+    (20) sentencias -> . UNTIL condicional sentencias END
+    (21) sentencias -> . CASE expression whenMuchos END
+    (22) sentencias -> . CASE expression whenMuchos ELSE sentencias END
+    (28) sentencias -> . WHILE LPAREN condicional RPAREN DO sentencias END
+    (29) sentencias -> . WHILE condicional DO sentencias END
+    (30) sentencias -> . WHILE LPAREN condicional RPAREN sentencias END
+    (31) sentencias -> . WHILE condicional sentencias END
+    (32) sentencias -> . FOR ID IN iterable sentencias END
+    (33) sentencias -> . FOR ID IN iterable DO sentencias END
+    (34) impresion -> . PRINT LPAREN argumento RPAREN
+    (35) impresion -> . PRINT argumento
+    (36) impresion -> . PRINT LPAREN RPAREN
+    (37) impresion -> . PRINT
+    (49) argumento -> . variable
+    (38) puts -> . PUTS LPAREN argumento RPAREN END
+    (39) puts -> . PUTS argumento
+    (40) puts -> . PUTS LPAREN RPAREN
+    (41) puts -> . PUTS
+    (11) asignacion -> . ID EQUALS variable
+    (12) asignacion -> . ID LCORCHETE NUMBER RCORCHETE EQUALS iterable
+    (42) variable -> . condicional
+    (43) variable -> . cadena
+    (44) variable -> . expression
+    (45) variable -> . iterable
+    (62) condicional -> . logicalOperation
+    (82) cadena -> . STRING
+    (83) cadena -> . STRINGCC
+    (84) expression -> . expression PLUS term
+    (85) expression -> . expression MINUS term
+    (86) expression -> . term
+    (50) iterable -> . range
+    (51) iterable -> . array
+    (52) iterable -> . hash
+    (63) logicalOperation -> . logicalOperation logicalOp logicalOperation
+    (66) logicalOperation -> . boolean
+    (67) logicalOperation -> . ID
+    (87) term -> . term TIMES factor
+    (88) term -> . term DIVIDE factor
+    (89) term -> . factor
+    (61) range -> . expression DOBLEPUNTO expression
+    (53) array -> . LCORCHETE valorArray RCORCHETE
+    (56) hash -> . LLLAVE claveValor RLLAVE
+    (68) boolean -> . TRUE
+    (69) boolean -> . FALSE
+    (70) boolean -> . exprBool
+    (71) boolean -> . NEGACION boolean
+    (90) factor -> . NUMBER
+    (91) factor -> . FLOAT
+    (92) factor -> . ID
+    (93) factor -> . LPAREN expression RPAREN
+    (72) exprBool -> . exprBool boolOperator exprBool
+    (81) exprBool -> . factor
 
-  ! reduce/reduce conflict for ELSE resolved using rule 13 (empty -> .)
-    ELSEIF          shift and go to state 157
-    ELSE            reduce using rule 13 (empty -> .)
+    IF              shift and go to state 6
+    UNLESS          shift and go to state 9
+    UNTIL           shift and go to state 10
+    CASE            shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    PRINT           shift and go to state 17
+    PUTS            shift and go to state 19
+    ID              shift and go to state 15
+    STRING          shift and go to state 24
+    STRINGCC        shift and go to state 25
+    LCORCHETE       shift and go to state 20
+    LLLAVE          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
+    NEGACION        shift and go to state 36
+    NUMBER          shift and go to state 21
+    FLOAT           shift and go to state 37
+    LPAREN          shift and go to state 7
 
-  ! ELSE            [ reduce using rule 14 (elseifanidado -> ELSEIF sentencias .) ]
-
-    elseifanidado                  shift and go to state 183
-    empty                          shift and go to state 158
+    condicional                    shift and go to state 8
+    sentencias                     shift and go to state 183
+    impresion                      shift and go to state 2
+    argumento                      shift and go to state 3
+    puts                           shift and go to state 4
+    asignacion                     shift and go to state 5
+    expression                     shift and go to state 12
+    iterable                       shift and go to state 16
+    variable                       shift and go to state 18
+    cadena                         shift and go to state 22
+    logicalOperation               shift and go to state 23
+    term                           shift and go to state 26
+    range                          shift and go to state 27
+    array                          shift and go to state 28
+    hash                           shift and go to state 29
+    boolean                        shift and go to state 30
+    factor                         shift and go to state 31
+    exprBool                       shift and go to state 35
 
 state 176
 
@@ -5859,16 +5874,27 @@ state 182
 
 state 183
 
-    (15) elseifanidado -> ELSEIF sentencias elseifanidado .
+    (14) elseifanidado -> ELSEIF condicional sentencias .
+    (15) elseifanidado -> ELSEIF condicional sentencias . elseifanidado
+    (14) elseifanidado -> . ELSEIF condicional sentencias
+    (15) elseifanidado -> . ELSEIF condicional sentencias elseifanidado
+    (16) elseifanidado -> . empty
+    (13) empty -> .
 
-    ELSE            reduce using rule 15 (elseifanidado -> ELSEIF sentencias elseifanidado .)
+  ! reduce/reduce conflict for ELSE resolved using rule 13 (empty -> .)
+    ELSEIF          shift and go to state 157
+    ELSE            reduce using rule 13 (empty -> .)
 
+  ! ELSE            [ reduce using rule 14 (elseifanidado -> ELSEIF condicional sentencias .) ]
+
+    elseifanidado                  shift and go to state 186
+    empty                          shift and go to state 158
 
 state 184
 
     (10) sentencias -> UNLESS LPAREN condicional RPAREN sentencias elseifanidado ELSE sentencias . END
 
-    END             shift and go to state 186
+    END             shift and go to state 187
 
 
 state 185
@@ -5883,6 +5909,13 @@ state 185
 
 
 state 186
+
+    (15) elseifanidado -> ELSEIF condicional sentencias elseifanidado .
+
+    ELSE            reduce using rule 15 (elseifanidado -> ELSEIF condicional sentencias elseifanidado .)
+
+
+state 187
 
     (10) sentencias -> UNLESS LPAREN condicional RPAREN sentencias elseifanidado ELSE sentencias END .
 
@@ -5918,7 +5951,7 @@ WARNING: reduce/reduce conflict in state 104 resolved using rule (logicalOperati
 WARNING: rejected rule (factor -> ID) in state 104
 WARNING: reduce/reduce conflict in state 145 resolved using rule (empty -> <empty>)
 WARNING: rejected rule (whenMuchos -> WHEN rangeYespression sentencias) in state 145
-WARNING: reduce/reduce conflict in state 175 resolved using rule (empty -> <empty>)
-WARNING: rejected rule (elseifanidado -> ELSEIF sentencias) in state 175
+WARNING: reduce/reduce conflict in state 183 resolved using rule (empty -> <empty>)
+WARNING: rejected rule (elseifanidado -> ELSEIF condicional sentencias) in state 183
 WARNING: Rule (whenMuchos -> WHEN rangeYespression sentencias) is never reduced
-WARNING: Rule (elseifanidado -> ELSEIF sentencias) is never reduced
+WARNING: Rule (elseifanidado -> ELSEIF condicional sentencias) is never reduced

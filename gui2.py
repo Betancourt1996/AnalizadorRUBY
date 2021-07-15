@@ -134,9 +134,22 @@ def algoritmoSemantico(self):
     strCodigo="""booleano=7>8 """
     return strCodigo
 def algoritmo(self):
-    strCodigo = """while(true) do
-        puts hola
-        end"""
+    strCodigo = """
+while True do
+	if (edad>0 and edad<12) 
+		puts "Niño"
+	elseif  edad>12 and edad<18
+		puts "Adolescente"	
+	elseif edad>18 and edad<24
+		for i in 1..18 do
+			puts "feliz"+"cumpleaños"
+			end
+	else
+		viejo=true
+		end
+	end	
+
+"""
     return strCodigo
 # create pyqt5 app
 App = QApplication(sys.argv)
@@ -148,26 +161,6 @@ window = Window()
 sys.exit(App.exec())
 
 
-# def on_rbtn_clicked():
-#     print("algo")
-#
-#     # parser = yacc.yacc()
-#     #
-#     # while True:
-#     #     try:
-#     #         s = input('calc > ')
-#     #     except EOFError:
-#     #         break
-#     #     if not s: continue
-#     #     result = parser.parse(s)
-#     #     print(result)
 
-# def on_button_clicked():
-#
-#     # alert = QMessageBox()
-#     # alert.setText('You clicked the button!')
-#     # alert.exec()
-#
-#     print("algo")
 
 
